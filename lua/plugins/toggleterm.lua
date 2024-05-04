@@ -31,7 +31,7 @@ return {
         function _G._lazygit_toggle()
             lazygit:toggle()
         end
-        vim.api.nvim_set_keymap('n', '<leader>gg', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>gg', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true, desc="Lazygit" })
 
         local console = Terminal:new {
             cmd = 'zsh',
@@ -55,6 +55,6 @@ return {
             console:toggle()
         end
 
-        vim.api.nvim_set_keymap('n', '`', '<cmd>lua _console_toggle()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '`', '<cmd>lua _console_toggle()<CR>', { noremap = true, silent = true, desc="Vimuake console"})
     end,
 }
