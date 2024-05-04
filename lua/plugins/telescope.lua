@@ -83,7 +83,9 @@ return {
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[R]esume' })
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[O]ld Files'})
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>ft', "<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>", { desc = '[T]ODOs and other'})
+      --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<C-f>', function()
