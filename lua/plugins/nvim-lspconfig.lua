@@ -9,11 +9,11 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -48,6 +48,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          -- FIX: adslkajd
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
           --
@@ -184,6 +185,23 @@ return {
           },
         },
       }
+
+      local signs = {
+        { name = 'DiagnosticSignError', text = '', texthl = 'DiagnosticSignError' },
+        { name = 'DiagnosticSignWarn', text = '', texthl = 'DiagnosticSignWarn' },
+        { name = 'DiagnosticSignHint', text = '󰌵', texthl = 'DiagnosticSignHint' },
+        { name = 'DiagnosticSignInfo', text = '󰋼', texthl = 'DiagnosticSignInfo' },
+        -- { name = 'DapStopped',             text = get_icon 'DapStopped',             texthl = 'DiagnosticWarn' },
+        -- { name = 'DapBreakpoint',          text = get_icon 'DapBreakpoint',          texthl = 'DiagnosticInfo' },
+        -- { name = 'DapBreakpointRejected',  text = get_icon 'DapBreakpointRejected',  texthl = 'DiagnosticError' },
+        -- { name = 'DapBreakpointCondition', text = get_icon 'DapBreakpointCondition', texthl = 'DiagnosticInfo' },
+        -- { name = 'DapLogPoint',            text = get_icon 'DapLogPoint',            texthl = 'DiagnosticInfo' },
+      }
+
+      for _, sign in ipairs(signs) do
+        vim.fn.sign_define(sign.name, sign)
+      end
+      -- lsp.setup_diagnostics(signs)
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
