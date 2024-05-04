@@ -7,7 +7,7 @@ return {
 
         require('auto-session').setup {
             log_level = 'error',
-            auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+            auto_session_suppress_dirs = { '~/', '~/code', '~/Downloads', '/', "~/cloud/"},
             pre_save_cmds = { 'Neotree close' },
             -- post_restore_cmds = { 'Neotree filesystem show' },
         }
