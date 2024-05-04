@@ -98,28 +98,6 @@ return {
         ['<C-PageUp>'] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 
-        -- Prevent jumps on Tab (annoying when python indent)
-        ['<Tab>'] = cmp.mapping(function(fallback)
-          fallback()
-          -- if cmp.visible() then
-          --   cmp.confirm({ select = true })
-          -- else
-          -- end
-        end, {
-          'i',
-          's',
-        }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-          fallback()
-          -- if cmp.visible() then
-          --   cmp.confirm({ select = true })
-          -- else
-          -- end
-        end, {
-          'i',
-          's',
-        }),
-
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             if luasnip.expandable() then

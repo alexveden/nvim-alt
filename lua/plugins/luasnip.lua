@@ -49,27 +49,6 @@ return {
       require("luasnip.loaders.from_lua").load { paths = "snippets" }
 
       -- Mapping
-      vim.keymap.set({ "i", "v" }, "<Tab>", function()
-        if not ls.in_snippet() then
-          vim.api.nvim_input("<tab>")
-        else
-          if ls.jumpable(1) then
-            ls.jump(1)
-          else
-            ls.unlink_current()
-            vim.api.nvim_input("<esc>")
-          end
-        end
-      end)
-
-      vim.keymap.set({ "i", "v" }, "<S-Tab>", function()
-        if not ls.in_snippet() then
-          vim.api.nvim_input("<S-tab>")
-        else
-          if ls.jumpable(-1) then ls.jump(-1) end
-        end
-      end)
-
       vim.keymap.set({ "i", "v" }, "<Right>", function()
         if ls.in_snippet() then
           if ls.jumpable(1) then
@@ -88,19 +67,6 @@ return {
       end)
 
       -- NOTE: glitchy <CR> handling, moved to nvim-cmp.lua!
-      -- vim.keymap.set({ "i", "v" }, "<CR>", function()
-      --   print("luasnip-cr")
-      --
-      --   if ls.in_snippet() or ls.choice_active() then
-      --     ls.unlink_current()
-      --     -- vim.cmd "norm"
-      --     vim.api.nvim_input("<esc><cr>")
-      --   else
-      --     -- print("norm")
-      --     -- vim.cmd "norm! <ESC>"
-      --     vim.cmd "norm! <CR>"
-      --   end
-      -- end)
 
       vim.keymap.set({ "i", "v" }, "<Left>", function()
         if ls.in_snippet() then
