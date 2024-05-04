@@ -87,6 +87,7 @@ vim.keymap.set('n', '<C-PageDn>', 'zj', { desc = 'Jump next fold below' })
 -- Code jumps
 vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous' })
 vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous' })
+vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous' })
 
 -- Tab indents
 -- NOTE: Tab binding must be after <Jump-previous
@@ -101,6 +102,12 @@ vim.keymap.set('n', '<C-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line Down' })
 vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection Up' })
 vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down' })
 
+-- Code comments
+vim.keymap.set('n', '<C-_>', function() require("Comment.api").toggle.linewise.current() end, { desc = 'Comment line' })
+vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = 'Comment selection' })
+
+
+
 -------------------------------------------------------------------------------
 --
 -- Interface keys
@@ -111,7 +118,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' }
 vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
 
 -- Leader main menu
-vim.keymap.set({ 'n', 'i', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
+vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
 vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
 vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
 vim.keymap.set({ 'n' }, '<leader>|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
@@ -121,7 +128,7 @@ vim.keymap.set({ 'n' }, '<leader>-', '<cmd>split<cr>', { desc = 'Horizontal spli
 vim.keymap.set({ 'n' }, '<leader>b|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
 vim.keymap.set({ 'n' }, '<leader>b-', '<cmd>split<cr>', { desc = 'Vertical split' })
 vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Close other tabs' })
-vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close other tabs' })
+vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close current tab' })
 
 -- NOTE: Telescope bindings are in plugins/telescope.lua
--- 
+-- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua  
