@@ -5,9 +5,7 @@
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -61,5 +59,25 @@ vim.opt.scrolloff = 10
 
 -- word wrap off
 vim.opt.wrap = false
+
+-- spell on
+vim.opt.spell = true
+vim.opt.spelllang = "en,ru"
+vim.opt.spelloptions = "camel,noplainbuffer"
+
+-- tabs
+ vim.opt.tabstop = 4           -- Tab ident width
+ vim.opt.shiftwidth = 4        -- Ident width when >>
+ vim.opt.expandtab = true      -- Convert tab to spaces
+ vim.opt.smarttab = true
+
+-- cursor options
+vim.opt.guicursor = "i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150"
+
+-- folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevelstart = 99
+vim.opt.colorcolumn = "89"
 
 -- vim: ts=2 sts=2 sw=2 et
