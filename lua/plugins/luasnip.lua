@@ -46,7 +46,7 @@ return {
       }
 
       -- My custom snippets
-      require("luasnip.loaders.from_lua").load { paths = "snippets" }
+      require("luasnip.loaders.from_lua").load { paths = "lua/snippets" }
 
       -- Mapping
       vim.keymap.set({ "i", "v" }, "<Right>", function()
