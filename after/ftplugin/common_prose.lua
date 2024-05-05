@@ -1,0 +1,3 @@
+-- Plain text specific options
+-- use vim.bo - for local options
+-- use vim.api.nvim_buf_set_keymap()

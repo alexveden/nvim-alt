@@ -2,6 +2,15 @@
 -- use vim.bo - for local options
 -- use vim.api.nvim_buf_set_keymap()
 --
+
+-- Special CamelCase or snake_case word moves (useful only in code)
+for _, mode in pairs({"n", "o", "x"}) do
+    vim.api.nvim_buf_set_keymap(0, mode, "w", "<cmd>lua require('spider').motion('w')<CR>", {})
+    vim.api.nvim_buf_set_keymap(0, mode, "e", "<cmd>lua require('spider').motion('e')<CR>", {})
+    vim.api.nvim_buf_set_keymap(0, mode , "b", "<cmd>lua require('spider').motion('b')<CR>", {})
+    vim.api.nvim_buf_set_keymap(0, mode, "ge", "<cmd>lua require('spider').motion('ge')<CR>", {})
+end
+
 vim.api.nvim_buf_set_keymap(0,
     "n",
     "&",
