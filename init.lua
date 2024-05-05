@@ -17,3 +17,6 @@ require 'keymaps'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Finalize initialization ]]
+require 'finally'

@@ -27,6 +27,7 @@ return {
         ['<leader>f'] = { name = '  [F]ind', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '󰊢  [G]it', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '  [T]oggle', _ = 'which_key_ignore' },
+        ['<leader>j'] = { name = '  [J]ust in case', _ = 'which_key_ignore' },
       }
       -- visual mode
       -- require('which-key').register({

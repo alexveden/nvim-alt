@@ -131,6 +131,11 @@ vim.keymap.set({ 'n' }, '<leader>b-', '<cmd>split<cr>', { desc = 'Vertical split
 vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Close other tabs' })
 vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close current tab' })
 
+-- Just in case keys 
+vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
+vim.keymap.set({ 'v' }, '<leader>jr', "y:.,$s/<C-R>\"/<C-R>\"/gc<Left><Left><Left>", { desc = 'Replace selection' })
+vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
+
 -- Interface quick toggle
 vim.keymap.set({ 'n' }, "<leader>tw", function()
 	vim.wo.wrap = not vim.wo.wrap
@@ -152,4 +157,4 @@ end, { desc = '[T]oggle [d]iagnostics' })
 -- NOTE: Telescope bindings are in plugins/telescope.lua
 -- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua
 -- NOTE: Git bindings are in plugins/gitsigns.lua
---
+

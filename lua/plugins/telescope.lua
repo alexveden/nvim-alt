@@ -28,7 +28,7 @@ return {
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -78,12 +78,19 @@ return {
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]iles' })
-      vim.keymap.set('n', '<leader>fs', "<cmd>Telescope luasnip", { desc = '[S]nippets' })
-      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[W]ord' })
+      vim.keymap.set('n', '<leader>fs', "<cmd>Telescope luasnip<CR>", { desc = '[S]nippets' })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[w]ord' })
+      vim.keymap.set('n', '<leader>fW', function()
+        require("telescope.builtin").live_grep {
+          additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        }
+      end, { desc = '[W]ord in all files' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[R]esume' })
-      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[O]ld Files'})
-      vim.keymap.set('n', '<leader>ft', "<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>", { desc = '[T]ODOs and other'})
+      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[O]ld Files' })
+      vim.keymap.set('n', '<leader>ft', "<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>",
+        { desc = '[T]ODOs and other' })
+      vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = '[M]an pages' })
       --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
 
@@ -105,7 +112,7 @@ return {
         }
       end, { desc = '[/] in Open Files' })
 
-      
+
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
