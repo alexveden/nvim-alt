@@ -13,3 +13,9 @@ vim.api.nvim_buf_set_keymap(0,
     "<leader>jd",
     ":lua require('neogen').generate()<CR>",
     { desc = "Generate doc-string" })
+
+vim.api.nvim_buf_set_keymap(0,
+    "n",
+    "<C-q>",
+    ":lua require('lsp_signature').toggle_float_win()<CR>",
+    { desc = "Show signature" })
