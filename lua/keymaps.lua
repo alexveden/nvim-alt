@@ -12,11 +12,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = 'Highlight when yanking (copying) text',
+	group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -------------------------------------------------------------------------------
@@ -104,7 +104,8 @@ vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection
 
 -- Code comments
 vim.keymap.set('n', '<C-_>', function() require("Comment.api").toggle.linewise.current() end, { desc = 'Comment line' })
-vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = 'Comment selection' })
+vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+	{ desc = 'Comment selection' })
 
 
 
@@ -130,5 +131,25 @@ vim.keymap.set({ 'n' }, '<leader>b-', '<cmd>split<cr>', { desc = 'Vertical split
 vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Close other tabs' })
 vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close current tab' })
 
+-- Interface quick toggle
+vim.keymap.set({ 'n' }, "<leader>tw", function()
+	vim.wo.wrap = not vim.wo.wrap
+end, { desc = '[T]oggle [w]rap' })
+
+vim.keymap.set({ 'n' }, "<leader>ts", function()
+	vim.wo.spell = not vim.wo.spell
+end, { desc = '[T]oggle [s]pellcheck' })
+
+vim.keymap.set({ 'n' }, "<leader>td", function()
+	if vim.diagnostic.is_disabled(0) then
+		vim.diagnostic.enable(0)
+	else
+		vim.diagnostic.disable(0)
+	end
+	vim.wo.spell = not vim.wo.spell
+end, { desc = '[T]oggle [d]iagnostics' })
+
 -- NOTE: Telescope bindings are in plugins/telescope.lua
--- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua  
+-- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua
+-- NOTE: Git bindings are in plugins/gitsigns.lua
+--
