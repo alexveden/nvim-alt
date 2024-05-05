@@ -54,7 +54,7 @@ return {
           border = true,               -- Bool value, toggles borders.
           title_invert = true,         -- Bool value, swaps text and background colors.
           italic_comments = true,      -- Bool value, toggles italic comments.
-          simple_syntax_colors = true, -- Bool value, simplifies the amounts of colors used for syntax highlighting.
+          simple_syntax_colors = false, -- Bool value, simplifies the amounts of colors used for syntax highlighting.
         },
 
         termguicolors = true,    -- Bool value, toggles if termguicolors are set by AstroTheme.
