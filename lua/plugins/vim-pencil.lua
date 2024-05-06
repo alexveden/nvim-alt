@@ -2,9 +2,9 @@
 return {
   {
     "preservim/vim-pencil",
-    -- lazy = false,
+    lazy = false,
     enabled = true,
-    event = "BufEnter *.md",
+    -- event = "BufEnter *.md",
     config = function()
     end,
   },
