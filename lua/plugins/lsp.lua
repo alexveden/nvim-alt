@@ -1,4 +1,33 @@
 return {
+  {
+
+    -- for lsp features in code cells / embedded code
+    'jmbuhr/otter.nvim',
+    dev = false,
+    dependencies = {
+      {
+        'neovim/nvim-lspconfig',
+        'nvim-treesitter/nvim-treesitter',
+        'hrsh7th/nvim-cmp',
+      },
+    },
+    opts = {
+      lsp = {
+        hover = {
+          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+        },
+        -- `:h events` that cause the diagnostics to update. Set to:
+        -- { "BufWritePost", "InsertLeave", "TextChanged" } for less performant
+        -- but more instant diagnostic updates
+        diagnostic_update_events = { 'BufWritePost', 'InsertLeave' },
+      },
+      buffers = {
+        set_filetype = true,
+        write_to_disk = false,
+      },
+      handle_leading_whitespace = true,
+    },
+  },
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -9,51 +38,25 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
-      -- Brief aside: **What is LSP?**
-      --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          local filetype = vim.api.nvim_get_option_value("filetype", { buf = event.buf })
+
+          assert(client, 'LSP client not found')
+          ---@diagnostic disable-next-line: inject-field
+          client.server_capabilities.document_formatting = true
 
           local map = function(keys, func, desc, mode)
             if not mode then
-              mode = "n"
+              mode = 'n'
             end
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
@@ -69,31 +72,25 @@ return {
           map('[g', vim.diagnostic.goto_prev, 'Previous diagnostic')
           map(']g', vim.diagnostic.goto_next, 'Next diagnostic')
           map('<leader>lD', require('telescope.builtin').diagnostics, '[D]iagnostics')
-          map('<leader>lI', "<cmd>LspInfo<cr>", "LSP [I]nformation")
-          -- map('<leader>lI', "<cmd>NullLsInfo<cr>", "Null-ls [I]nformation");
 
-          if client.supports_method "textDocument/codeAction" then
-            map('<leader>la',
-              vim.lsp.buf.code_action,
-              "code [a]ction", { "n", "v" });
+          if client.supports_method 'textDocument/codeAction' then
+            map('<leader>la', vim.lsp.buf.code_action, 'code [a]ction', { 'n', 'v' })
           end
 
-          if client.supports_method "textDocument/formatting" then
-            map('<leader>lf',
-              vim.lsp.buf.format,
-              "code [f]ormat", { "n", "v" });
-          end
+          -- if client.supports_method 'textDocument/formatting' then
+          map('<leader>lf', vim.lsp.buf.format, 'code [f]ormat', { 'n', 'v' })
+          -- end
 
-          if client.supports_method "textDocument/references" then
+          if client.supports_method 'textDocument/references' then
             map('gr', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
             map('<leader>lR', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
           end
 
-          if client.supports_method "textDocument/rename" then
+          if client.supports_method 'textDocument/rename' then
             map('<leader>lr', vim.lsp.buf.rename, '[R]ename')
           end
 
-          if client.supports_method "textDocument/signatureHelp" then
+          if client.supports_method 'textDocument/signatureHelp' then
             map('<leader>lh', vim.lsp.buf.signature_help, 'Signature [H]elp')
           end
 
@@ -165,6 +162,7 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -175,6 +173,35 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --
+      local util = require 'lspconfig.util'
+
+      --- Get quarto LUA paths
+      local function get_quarto_resource_path()
+        local function strsplit(s, delimiter)
+          local result = {}
+          for match in (s .. delimiter):gmatch('(.-)' .. delimiter) do
+            table.insert(result, match)
+          end
+          return result
+        end
+
+        local f = assert(io.popen('quarto --paths', 'r'))
+        local s = assert(f:read '*a')
+        f:close()
+        return strsplit(s, '\n')[2]
+      end
+
+      local lua_library_files = vim.api.nvim_get_runtime_file('', true)
+      local lua_plugin_paths = {}
+      local resource_path = get_quarto_resource_path()
+      if resource_path == nil then
+        vim.notify_once 'quarto not found, lua library files not loaded'
+      else
+        table.insert(lua_library_files, resource_path .. '/lua-types')
+        table.insert(lua_plugin_paths, resource_path .. '/lua-plugin/plugin.lua')
+      end
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -187,7 +214,16 @@ return {
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
-        --
+
+        -- Markdown LSP + Quarto server
+        -- also needs:
+        -- $home/.config/marksman/config.toml :
+        -- [core]
+        -- markdown.file_extensions = ["md", "markdown", "qmd"]
+        marksman = {
+          filetypes = { 'markdown', 'quarto' },
+          root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -198,10 +234,40 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              runtime = {
+                version = 'LuaJIT',
+                plugin = lua_plugin_paths,
+              },
+              diagnostics = {
+                globals = { 'vim', 'quarto', 'pandoc', 'io', 'string', 'print', 'require', 'table' },
+                disable = { 'trailing-space' },
+              },
+              workspace = {
+                library = lua_library_files,
+                checkThirdParty = false,
+              },
+              telemetry = {
+                enable = false,
+              },
+              format = {
+                -- see null-ls.stylua
+                enable = false,
+              },
             },
           },
+        },
+        jedi_language_server = {
+          capabilities = {
+            -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = false,
+              },
+            },
+          },
+          root_dir = function(fname)
+            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or util.path.dirname(fname)
+          end,
         },
       }
 
@@ -238,6 +304,10 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      local lsp_flags = {
+        allow_incremental_sync = true,
+        debounce_text_changes = 150,
+      }
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
@@ -246,6 +316,7 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.flags = vim.tbl_deep_extend('force', {}, lsp_flags, server.lsp_flags or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
