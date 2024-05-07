@@ -13,6 +13,9 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Virtual edit (allowing goto past last char)
+vim.opt.virtualedit = 'onemore'
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -45,8 +48,8 @@ vim.opt.splitbelow = true
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
---vim.opt.list = true
---vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -62,28 +65,31 @@ vim.opt.wrap = false
 
 -- spell on
 vim.opt.spell = true
-vim.opt.spelllang = "en,ru"
-vim.opt.spelloptions = "camel,noplainbuffer"
+vim.opt.spelllang = 'en,ru'
+vim.opt.spelloptions = 'camel,noplainbuffer'
 
--- tabs
- vim.opt.tabstop = 4           -- Tab ident width
- vim.opt.shiftwidth = 4        -- Ident width when >>
- vim.opt.expandtab = true      -- Convert tab to spaces
- vim.opt.smarttab = true
+-- tabs / indents
+vim.opt.tabstop = 4 -- Tab ident width
+vim.opt.shiftwidth = 4 -- Indent width when >>
+vim.opt.expandtab = true -- Convert tab to spaces
+vim.opt.smarttab = true
+vim.opt.copyindent = true
+vim.opt.breakindent = true -- wrap indent to match  line start
+vim.opt.preserveindent = true -- preserve indent structure as much as possible
 
 -- cursor options
-vim.opt.guicursor = "i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150"
+vim.opt.guicursor = 'i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150'
 
 -- folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevelstart = 99
-vim.opt.colorcolumn = "89"
+vim.opt.colorcolumn = '89'
 
 local function escape(str)
-    -- You need to escape these characters to work correctly
-    local escape_chars = [[;,."|\]]
-    return vim.fn.escape(str, escape_chars)
+  -- You need to escape these characters to work correctly
+  local escape_chars = [[;,."|\]]
+  return vim.fn.escape(str, escape_chars)
 end
 
 -- Recommended to use lua template string
@@ -93,11 +99,11 @@ local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
 local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
 
 vim.opt.langmap = vim.fn.join({
-    -- | `to` should be first     | `from` should be second
-    escape(ru_shift)
-    .. ";"
+  -- | `to` should be first     | `from` should be second
+  escape(ru_shift)
+    .. ';'
     .. escape(en_shift),
-    escape(ru) .. ";" .. escape(en),
-}, ",")
+  escape(ru) .. ';' .. escape(en),
+}, ',')
 
 -- vim: ts=2 sts=2 sw=2 et
