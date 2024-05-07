@@ -203,7 +203,11 @@ return {
       end
 
       local servers = {
-        -- clangd = {},
+        clangd = {
+          capabilities = {
+            offsetEncoding = "utf-16",
+          }
+        },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
