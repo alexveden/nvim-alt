@@ -21,10 +21,10 @@ return {
 
     local lspkind_format = {
       mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
       -- can also be a function to dynamically calculate max width such as
       -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-      ellipsis_char = '...',    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
       show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
       -- The function below will be called before any actual modifications from lspkind
@@ -48,7 +48,7 @@ return {
         Value = '󰎠',
         Enum = '',
         Keyword = '󰌋',
-        Snippet = "",
+        Snippet = '',
         Color = '󰏘',
         File = '󰈙',
         Reference = '󰈇',
@@ -99,21 +99,26 @@ return {
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 
         ['<CR>'] = cmp.mapping(function(fallback)
+          local mode = vim.api.nvim_get_mode()['mode']
+
           if cmp.visible() then
-            if luasnip.expandable() then
+            if mode ~= 'c' and luasnip.expandable() then
               luasnip.expand()
             else
               cmp.confirm {
                 select = true,
               }
+              -- if mode == 'c' then
+              --     vim.api.nvim_input '<cr>'
+              -- end
             end
-          elseif luasnip.in_snippet() or luasnip.choice_active() then
+          elseif mode ~= 'c' and (luasnip.in_snippet() or luasnip.choice_active()) then
             luasnip.unlink_current()
             vim.api.nvim_input '<esc><cr>'
           else
             fallback()
           end
-        end, { 'i', 'c', 's', 'n' }),
+        end, { 'i', 'n' }),
 
         ['<Down>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -150,9 +155,10 @@ return {
       },
 
       sources = cmp.config.sources {
+        { name = 'otter' },
         { name = 'luasnip_choice', priority = 1500 }, --- FIX: not working!
-        { name = 'luasnip',        priority = 1000 },
-        { name = 'nvim_lsp',       priority = 999 },
+        { name = 'luasnip', priority = 1000 },
+        { name = 'nvim_lsp', priority = 999 },
         { name = 'buffer', priority = 500, option = {
           keyword_pattern = [[\k\+]],
         } },
