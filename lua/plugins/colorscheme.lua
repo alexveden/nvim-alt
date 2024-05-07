@@ -25,7 +25,7 @@ return {
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     --'folke/tokyonight.nvim',
     -- 'rebelot/kanagawa.nvim',
-    'AstroNvim/astrotheme', -- broken!
+    'AstroNvim/astrotheme',
     -- 'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
@@ -39,6 +39,7 @@ return {
 
       -- You can configure highlights by doing something like:
       -- vim.cmd.hi 'Comment gui=none'
+
       require('astrotheme').setup {
         palette = 'astrodark', -- String of the default palette to use when calling `:colorscheme astrotheme`
         background = {         -- :h background, palettes to use when using the core vim background colors
@@ -69,42 +70,8 @@ return {
         plugins = { -- Allows for individual plugin overrides using plugin name and value from above.
           ['bufferline.nvim'] = false,
         },
-
-        -- palettes = {
-        --   global = { -- Globally accessible palettes, theme palettes take priority.
-        --     my_grey = '#ebebeb',
-        --     my_color = '#ffffff',
-        --   },
-        --   astrodark = {           -- Extend or modify astrodarks palette colors
-        --     ui = {
-        --       red = '#800010',    -- Overrides astrodarks red UI color
-        --       accent = '#CC83E3', -- Changes the accent color of astrodark.
-        --     },
-        --     syntax = {
-        --       cyan = '#800010',     -- Overrides astrodarks cyan syntax color
-        --       comments = '#CC83E3', -- Overrides astrodarks comment color.
-        --     },
-        --     my_color = '#000000',   -- Overrides global.my_color
-        --   },
-        -- },
-
-        -- highlights = {
-        --   global = { -- Add or modify hl groups globally, theme specific hl groups take priority.
-        --     modify_hl_groups = function(hl, c)
-        --       hl.PluginColor4 = { fg = c.my_grey, bg = c.none }
-        --     end,
-        --     ['@String'] = { fg = '#ff00ff', bg = 'NONE' },
-        --   },
-        --   astrodark = {
-        --     -- first parameter is the highlight table and the second parameter is the color palette table
-        --     modify_hl_groups = function(hl, c) -- modify_hl_groups function allows you to modify hl groups,
-        --       hl.Comment.fg = c.my_color
-        --       hl.Comment.italic = true
-        --     end,
-        --     ['@String'] = { fg = '#ff00ff', bg = 'NONE' },
-        --   },
-        -- },
       }
+
       vim.cmd.colorscheme 'astrodark'
     end,
   },
