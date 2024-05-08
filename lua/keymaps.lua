@@ -81,8 +81,8 @@ vim.keymap.set('n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'foldlevel=0' })
 vim.keymap.set('n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'foldlevel=1' })
 vim.keymap.set('n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'foldlevel=2' })
 vim.keymap.set('n', 'z3', '<cmd>set foldlevel=3<CR>', { desc = 'foldlevel=3' })
-vim.keymap.set('n', '<C-PageUp>', 'zk', { desc = 'Jump next fold above' })
-vim.keymap.set('n', '<C-PageDn>', 'zj', { desc = 'Jump next fold below' })
+vim.keymap.set('n', '<C-PageUp>', '[f', { desc = 'Jump next function above' })
+vim.keymap.set('n', '<C-PageDown>', ']f', { desc = 'Jump next function below' })
 
 -- Code jumps
 vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous' })
@@ -137,8 +137,6 @@ vim.keymap.set({ 'n' }, '<leader>bp', '<cmd>BufferMovePrevious<cr>', { desc = 'B
 -- Just in case keys 
 vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
 vim.keymap.set({ 'v' }, '<leader>jr', "y:.,$s/<C-R>\"/<C-R>\"/gc<Left><Left><Left>", { desc = 'Replace selection' })
-vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
-vim.keymap.set({ 'n' }, '<leader>jz', "<cmd>ZenMode<cr>", { desc = 'Replace word undercursor' })
 
 -- Interface quick toggle
 vim.keymap.set({ 'n' }, "<leader>tw", function()
@@ -148,6 +146,8 @@ end, { desc = '[T]oggle [w]rap' })
 vim.keymap.set({ 'n' }, "<leader>ts", function()
 	vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [s]pellcheck' })
+
+vim.keymap.set({ 'n' }, '<leader>tz', "<cmd>ZenMode<cr>", { desc = '[T]oggle [Z]enMode' })
 
 vim.keymap.set({ 'n' }, "<leader>td", function()
 	if vim.diagnostic.is_disabled(0) then

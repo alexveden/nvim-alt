@@ -1,9 +1,10 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', "python" },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -22,6 +23,37 @@ return {
         end,
       },
       indent = { enable = true, disable = { 'ruby' } },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ['ak'] = { query = '@block.outer', desc = 'around block' },
+            ['ik'] = { query = '@block.inner', desc = 'inside block' },
+            ['af'] = { query = '@function.outer', desc = 'around function ' },
+            ['if'] = { query = '@function.inner', desc = 'inside function ' },
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = false,
+          goto_next_start = {
+            [']k'] = { query = '@block.outer', desc = 'Next block start' },
+            [']f'] = { query = '@function.outer', desc = 'Next function start' },
+            ["]J"] = { query = "@code_cell.comment", desc = "Next code cell start" },
+            ["]j"] = { query = "@cell.comment", desc = "Next cell start" },
+          },
+          goto_next_end = {
+          },
+          goto_previous_start = {
+            ['[f'] = { query = '@function.outer', desc = 'Previous function start' },
+            ["[J"] = { query = "@code_cell.comment", desc = "Prev code cell start" },
+            ["[j"] = { query = "@cell.comment", desc = "Prev cell start" },
+          },
+          goto_previous_end = {
+          },
+        },
+      },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`

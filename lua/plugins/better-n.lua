@@ -2,7 +2,7 @@ return {
   {
     "jonatan-branting/nvim-better-n",
     lazy = true,
-    enabled = true,
+    enabled = false,
     event = "BufEnter",
     commit = "2e2e0834b7b9f0fbeaebefc030934e3f1c2c5939",
     config = function()
