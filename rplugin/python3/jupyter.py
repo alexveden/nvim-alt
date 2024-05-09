@@ -43,7 +43,9 @@ class JupyterKernel:
                 )
                 return
 
-        self.console = subprocess.Popen(["python", qt_console_script, "--style", "monokai"])
+        self.console = subprocess.Popen(
+            ["python", qt_console_script, "--style", "monokai"]
+        )
         time.sleep(2.0)
 
         self.console.poll()
