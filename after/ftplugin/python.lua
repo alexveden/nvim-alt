@@ -19,32 +19,11 @@ end
 -- This might be used by other plugins for conditional actions
 vim.api.nvim_buf_set_var(0, 'python_is_jupyter', is_jupyter)
 
---
--- Jupyter QtConsole launch and attach
---
-local delayed_attach = function()
-  -- kernel-qtconsole.json - has to be set in  ~/.jupyter/jupyter_qtconsole_config.py
-  vim.cmd 'JupyterAttach kernel-qtconsole.json'
-end
-
-Run_qtconsole_and_attach = function()
-  local vim_init_path = os.getenv 'MYVIMRC'
-  local config_dir = vim.fn.fnamemodify(vim_init_path, ':p:h')
-
-  vim.cmd(':silent !python ' .. config_dir .. '/scripts/run_qtconsole.py')
-  -- vim.cmd('!python ' .. config_dir .. '/scripts/run_qtconsole.py')
-
-  -- Delay 2000ms and 0 means "do not repeat"
-  local timer = vim.loop.new_timer()
-  timer:start(1000, 0, vim.schedule_wrap(delayed_attach))
-end
-
 --JupyterCellNext - fixes flaws in last "# %%" tag of a file
 JupyterSelectCell = function(is_code_cell, is_around)
   -- NOTE: [J ]J - are treesitter jupyter specific text objects
   --
   -- vim.cmd "m'" -- mark current position
-
   local line_text = vim.api.nvim_get_current_line()
   local line_index = vim.api.nvim_win_get_cursor(0)[1]
   local line_count = vim.api.nvim_buf_line_count(0)
@@ -94,6 +73,28 @@ JupyterSelectCell = function(is_code_cell, is_around)
   end
 end
 
+vim.api.nvim_buf_create_user_command(0, 'JupyterExecute', function(opts)
+  local codes = vim.fn.getline(opts.line1) -- default to current line
+
+  if opts.range == 2 then
+    codes = vim.fn.getline(opts.line1, opts.line2)
+    codes = table.concat(codes, '\n')
+  elseif opts.args ~= '' then
+    codes = opts.args
+  end
+
+  local status = vim.fn.JupyterExecute(codes)
+  if status == vim.NIL then
+    vim.notify("JupyterExecute: Probably not attached")
+  elseif status ~= 'ok' then
+    vim.notify(status)
+  end
+end, {
+  desc = 'Send code to execute with kernel',
+  nargs = '?', -- Accept 0 or 1 argument
+  range = 2, -- or a visual selection
+})
+
 --
 -- Key bindings
 --
@@ -101,7 +102,9 @@ end
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>jf', ':lua require("text_objects").f_string_prepend()<CR>', { desc = 'add f- prefix for string' })
 
 if is_jupyter then
-  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', ':lua Run_qtconsole_and_attach()<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' })
+  -- NOTE: JupyterAttach / JupyterExecute commands see rplugin/python3/jupyter.py
+  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' })
+  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' })
 
   --
   -- Jupyter Text mode

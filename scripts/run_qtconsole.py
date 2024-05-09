@@ -11,12 +11,5 @@ def autoscroll_console_widget(wrapped_func):
 if __name__ == '__main__':
     from qtconsole.qtconsoleapp import main
     from qtconsole.console_widget import ConsoleWidget
-    from jupyter_core.paths import jupyter_runtime_dir
-    import os
-    import sys
-    if os.path.exists(os.path.join(jupyter_runtime_dir(), "kernel-qtconsole.json")):
-        print("Kernel exists")
-        sys.exit(0)
-
     ConsoleWidget._append_custom = autoscroll_console_widget(ConsoleWidget._append_custom)
     main()

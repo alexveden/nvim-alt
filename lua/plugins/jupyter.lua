@@ -15,9 +15,4 @@ return {
       },
     },
   },
-  {
-    'lkhphuc/jupyter-kernel.nvim',
-    cmd = { 'JupyterAttach', 'JupyterInspect', 'JupyterExecute' },
-    build = ':UpdateRemotePlugins',
-  },
 }
