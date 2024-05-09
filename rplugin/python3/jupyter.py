@@ -43,8 +43,9 @@ class JupyterKernel:
                 )
                 return
 
-        self.console = subprocess.Popen(["python", qt_console_script])
-        time.sleep(1.0)
+        self.console = subprocess.Popen(["python", qt_console_script, "--style", "monokai"])
+        time.sleep(2.0)
+
         self.console.poll()
 
         if not kernel.exists():
@@ -62,6 +63,15 @@ class JupyterKernel:
         self.client = BlockingKernelClient()
         self.client.load_connection_file(kernel)
         self.client.start_channels()
+
+        time.sleep(0.2)
+        jupyter_boilerplate = """
+%matplotlib inline
+import pandas as pd
+import numpy as np
+        """
+        self.execute((jupyter_boilerplate,))
+
         self.vim.api.notify("JupyterAttach: attached successfully", 0, {})
 
     @pynvim.command("JupyterClose")
