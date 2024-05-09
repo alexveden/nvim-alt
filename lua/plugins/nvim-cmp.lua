@@ -14,6 +14,9 @@ return {
     local luasnip = require 'luasnip'
     local lspkind = require 'lspkind'
 
+    -- Add autopairs event
+    cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done { tex = false })
+
     local border_opts = {
       border = 'rounded',
       winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
@@ -76,7 +79,16 @@ return {
       },
       snippet = {
         expand = function(args)
+          -- This for expanding functions from LSP
           luasnip.lsp_expand(args.body)
+          -- prevent snippet like behavior
+          luasnip.unlink_current()
+          local prev_col = vim.fn.col '.' - 1
+          local prev_char = vim.fn.getline('.'):sub(prev_col, prev_col)
+          if prev_char == ')' then
+            -- we are in the function end, goto inside parenthesis
+            vim.cmd 'normal! h'
+          end
         end,
       },
       duplicates = {
@@ -99,22 +111,11 @@ return {
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 
         ['<CR>'] = cmp.mapping(function(fallback)
-          local mode = vim.api.nvim_get_mode()['mode']
-
-          if cmp.visible() then
-            if mode ~= 'c' and luasnip.expandable() then
-              luasnip.expand()
-            else
-              cmp.confirm {
-                select = true,
-              }
-              -- if mode == 'c' then
-              --     vim.api.nvim_input '<cr>'
-              -- end
-            end
-          elseif mode ~= 'c' and (luasnip.in_snippet() or luasnip.choice_active()) then
+          if cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+          elseif luasnip.in_snippet() or luasnip.choice_active() then
             luasnip.unlink_current()
-            vim.api.nvim_input '<esc><cr>'
+            -- vim.api.nvim_feedkeys '<esc><cr>'
           else
             fallback()
           end
