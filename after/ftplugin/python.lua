@@ -102,6 +102,8 @@ end, {
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>jf', ':lua require("text_objects").f_string_prepend()<CR>', { desc = 'add f- prefix for string' })
 
 if is_jupyter then
+  vim.api.nvim_set_hl(0, "@hlcell.comment", {fg = "#ffffff"})
+  
   -- NOTE: JupyterAttach / JupyterExecute commands see rplugin/python3/jupyter.py
   vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' , silent = true })
   vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' , silent = true })

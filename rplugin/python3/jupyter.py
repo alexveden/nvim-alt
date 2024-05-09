@@ -71,6 +71,7 @@ class JupyterKernel:
 %matplotlib inline
 import pandas as pd
 import numpy as np
+pd.set_option('display.width', 1000)
         """
         self.execute((jupyter_boilerplate,))
 
