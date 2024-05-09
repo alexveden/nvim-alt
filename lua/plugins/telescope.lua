@@ -54,16 +54,28 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local telescope_actions = require 'telescope.actions'
+      local builtin = require 'telescope.builtin'
+
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          dynamic_preview_title = true,
+          --path_display = { shorten = { len = 2 } }
+          path_display = { 'smart' },
+          mappings = {
+            i = {
+              ['<PageUp'] = false,
+              ['<PageDown'] = false,
+              ['<C-Up>'] = telescope_actions.cycle_history_prev,
+              ['<C-Down>'] = telescope_actions.cycle_history_next,
+
+              ['<C-PageUp>'] = telescope_actions.preview_scrolling_up,
+              ['<C-PageDown>'] = telescope_actions.preview_scrolling_down,
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -78,7 +90,6 @@ return {
       require('telescope').load_extension 'luasnip'
 
       -- See `:help telescope.builtin`
-      local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]iles' })
