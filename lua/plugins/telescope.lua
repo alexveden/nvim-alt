@@ -26,11 +26,11 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      {"debugloop/telescope-undo.nvim"},
+      { 'debugloop/telescope-undo.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
-      "benfowler/telescope-luasnip.nvim",
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      'benfowler/telescope-luasnip.nvim',
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -74,29 +74,29 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      require("telescope").load_extension("undo")
-    require('telescope').load_extension('luasnip')
+      require('telescope').load_extension 'undo'
+      require('telescope').load_extension 'luasnip'
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]iles' })
-      vim.keymap.set('n', '<leader>fs', "<cmd>Telescope luasnip<CR>", { desc = '[S]nippets' })
+      vim.keymap.set('n', '<leader>fs', '<cmd>Telescope luasnip<CR>', { desc = '[S]nippets' })
       vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>fW', function()
-        require("telescope.builtin").live_grep {
-          additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        require('telescope.builtin').live_grep {
+          additional_args = function(args)
+            return vim.list_extend(args, { '--hidden', '--no-ignore' })
+          end,
         }
       end, { desc = '[W]ord in all files' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[R]esume' })
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[O]ld Files' })
-      vim.keymap.set('n', '<leader>ft', "<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>",
-        { desc = '[T]ODOs and other' })
+      vim.keymap.set('n', '<leader>ft', '<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>', { desc = '[T]ODOs and other' })
       vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = '[M]an pages' })
       --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<C-f>', function()
@@ -123,7 +123,6 @@ return {
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[/] in Open Files' })
-
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>fn', function()
