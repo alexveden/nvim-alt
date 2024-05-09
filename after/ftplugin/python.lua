@@ -103,8 +103,8 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<leader>jf', ':lua require("text_objects").
 
 if is_jupyter then
   -- NOTE: JupyterAttach / JupyterExecute commands see rplugin/python3/jupyter.py
-  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' })
-  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' })
+  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' , silent = true })
+  vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' , silent = true })
 
   --
   -- Jupyter Text mode
