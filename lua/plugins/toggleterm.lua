@@ -80,6 +80,6 @@ return {
       }
       term:toggle()
     end
-    vim.api.nvim_set_keymap('n', '<leader>gl', '<cmd>lua _lazygit_log()<CR>', { noremap = true, silent = true, desc = 'Lazygit' })
+    vim.api.nvim_set_keymap('n', '<leader>gl', '<cmd>lua _lazygit_log()<CR>', { noremap = true, silent = true, desc = '[G]it [L]og for a current file' })
   end,
 }
