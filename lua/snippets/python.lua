@@ -43,6 +43,15 @@ return {
     t({"", "# ---"}),
     t({"", "#", "", ""}),
     i(0, '', h 'Quarto Document Header'),
-
+  }),
+  s('jnotebook', {
+    t {"", '# %%', ""},
+    t {'# %load_ext autoreload', ""},
+    t {'# %autoreload 2', ""},
+    t {'# %pylab inline', ""},
+    t {'import matplotlib.pyplot as plt', ""},
+    t {'import pandas as pd', ""},
+    t {'import numpy as np', ""},
+    t {'', ""},
   }),
 }

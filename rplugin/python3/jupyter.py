@@ -68,7 +68,13 @@ class JupyterKernel:
 
         time.sleep(0.2)
         jupyter_boilerplate = """
-%matplotlib inline
+%load_ext autoreload
+%autoreload 2
+%pylab inline
+
+import matplotlib.pyplot as plt
+plt.style.use('dark_background')
+
 import pandas as pd
 import numpy as np
 pd.set_option('display.width', 1000)

@@ -12,7 +12,8 @@ return {
     config.sources = {
       -- Set a formatter
       null_ls.builtins.formatting.stylua,
-      null_ls.builtins.diagnostics.flake8.with { extra_args = { '--max-line-length', '88' } },
+      -- Flake diagnostics (defaulting for jupyter notebook)
+      null_ls.builtins.diagnostics.flake8.with { extra_args = { '--max-line-length', '88', '--ignore', 'E501,E305,E402'  } },
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.diagnostics.checkmake,
       null_ls.builtins.formatting.black.with {

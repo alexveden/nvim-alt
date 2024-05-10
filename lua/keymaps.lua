@@ -107,6 +107,8 @@ vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close cur
 -- Leader main menu
 vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
 vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
+
+
 vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
 vim.keymap.set({ 'n' }, '<leader>|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
 vim.keymap.set({ 'n' }, '<leader>-', '<cmd>split<cr>', { desc = 'Horizontal split' })
@@ -119,6 +121,7 @@ vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close cu
 vim.keymap.set({ 'n' }, '<leader>bu', '<cmd>Telescope undo<cr>', { desc = 'Buffer undo tree' })
 vim.keymap.set({ 'n' }, '<leader>bn', '<cmd>BufferMoveNext<cr>', { desc = 'Buffer tab move next' })
 vim.keymap.set({ 'n' }, '<leader>bp', '<cmd>BufferMovePrevious<cr>', { desc = 'Buffer tab move next' })
+vim.keymap.set('n', '<leader>bt', "<cmd>lua require('neo-tree.command').execute({action = 'focus', source='filesystem', reveal=true})<cr>", { desc = 'Open current file in tree' })
 
 -- Just in case keys 
 vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
