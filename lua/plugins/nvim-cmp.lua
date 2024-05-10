@@ -111,8 +111,10 @@ return {
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 
         ['<CR>'] = cmp.mapping(function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+          if cmp.visible() then
+            if cmp.get_active_entry() then
+              cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+            end
           elseif luasnip.in_snippet() or luasnip.choice_active() then
             luasnip.unlink_current()
             -- vim.api.nvim_feedkeys '<esc><cr>'
@@ -120,6 +122,24 @@ return {
             fallback()
           end
         end, { 'i', 'n' }),
+
+        ['<Tab>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            if not entry then
+              cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+            end
+            cmp.confirm()
+          else
+            fallback()
+          end
+        end, { 'i' }),
+
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+          if not cmp.visible() then
+            fallback()
+          end
+        end, { 'i' }),
 
         ['<Down>'] = cmp.mapping(function(fallback)
           if cmp.visible() then

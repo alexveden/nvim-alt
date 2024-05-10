@@ -12,7 +12,7 @@ return {
       -- vim.api.nvim_exec("hi LuasnipInsertNodePassive cterm=underline gui=underline", true)
 
       local opts = {
-        history = true,
+        history = false,
         delete_check_events = 'TextChanged',
         region_check_events = 'CursorMoved',
         ext_opts = {

@@ -100,7 +100,7 @@ vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewi
 -- Interface keys
 --
 -------------------------------------------------------------------------------
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr>', { desc = 'Save file' })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file' })
 vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
 vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
 
