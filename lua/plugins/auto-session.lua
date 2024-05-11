@@ -1,5 +1,6 @@
 return {
     'rmagatti/auto-session',
+    enabled = false,
     dependencies = { 'nvim-neo-tree/neo-tree.nvim' },
     config = function()
         local git_dir = vim.fn.getcwd() .. "/.git"

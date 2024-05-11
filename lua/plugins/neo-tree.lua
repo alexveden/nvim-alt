@@ -41,6 +41,9 @@ return {
       window = {
         mappings = {
           -- ['\\'] = 'close_window',
+          ["z"] = "expand_all_nodes",
+          ["C"] = "close_all_nodes",
+          ["Z"] = "close_all_nodes",
         },
       },
     },

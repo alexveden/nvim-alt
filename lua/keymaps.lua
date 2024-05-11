@@ -12,8 +12,18 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -------------------------------------------------------------------------------
 
 -- Tabs switching
-vim.keymap.set('n', '<C-Right>', '<cmd>BufferNext<cr>', { desc = 'Move focus to the next tab' })
-vim.keymap.set('n', '<C-Left>', '<cmd>BufferPrevious<cr>', { desc = 'Move focus to the prev tab' })
+-- vim.keymap.set('n', '<C-Right>', '<cmd>BufferNext<cr>', { desc = 'Move focus to the next tab' })
+-- vim.keymap.set('n', '<C-Left>', '<cmd>BufferPrevious<cr>', { desc = 'Move focus to the prev tab' })
+
+-- Harpoon bindings
+vim.keymap.set('n', '<leader><leader>', '<cmd>:lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = 'Harpoon quick menu' })
+vim.keymap.set('n', '<leader>a', '<cmd>:lua require("harpoon.mark").add_file()<cr>', { desc = 'Harpoon add' })
+vim.keymap.set('n', '<C-Right>', '<cmd>:lua require("harpoon.ui").nav_next()<cr>', { desc = 'Next harpooned file' })
+vim.keymap.set('n', '<C-Left>', '<cmd>:lua require("harpoon.ui").nav_prev()<cr>', { desc = 'Prev harpooned file' })
+vim.keymap.set('n', '<C-j>', '<cmd>:lua require("harpoon.ui").nav_file(1)<cr>', { desc = 'Harpoon file[1]' })
+vim.keymap.set('n', '<C-k>', '<cmd>:lua require("harpoon.ui").nav_file(2)<cr>', { desc = 'Harpoon file[2]' })
+vim.keymap.set('n', '<C-l>', '<cmd>:lua require("harpoon.ui").nav_file(3)<cr>', { desc = 'Harpoon file[3]' })
+vim.keymap.set('n', '<C-;>', '<cmd>:lua require("harpoon.ui").nav_file(4)<cr>', { desc = 'Harpoon file[4]' })
 
 -- Split/TMUX navigation
 vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up' })
@@ -40,16 +50,15 @@ vim.keymap.set({ 'n', 'v', 'i' }, '<ScrollWheelDown>', '<C-E>')
 vim.keymap.set('n', '<S-Home>', '<Nop>')
 vim.keymap.set('n', '<S-End>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-j>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-k>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-l>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-h>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-j>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 
 -------------------------------------------------------------------------------
@@ -89,65 +98,68 @@ vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection U
 vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down' })
 
 -- Code comments
-vim.keymap.set('n', '<C-_>', function() require("Comment.api").toggle.linewise.current() end, { desc = 'Comment line' })
-vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-	{ desc = 'Comment selection' })
-
-
+vim.keymap.set('n', '<C-_>', function()
+  require('Comment.api').toggle.linewise.current()
+end, { desc = 'Comment line' })
+vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = 'Comment selection' })
 
 -------------------------------------------------------------------------------
 --
--- Interface keys
+-- Core Interface keys
 --
 -------------------------------------------------------------------------------
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file' })
-vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
-vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:wa!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file' })
+-- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
+-- vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
+vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = 'Close current buffer' })
+vim.keymap.set({ 'n' }, '<leader>d', '<cmd>Telescope buffers<cr>', { desc = '[d]ocuments open' })
+vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
 -- Leader main menu
-vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
-vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
+-- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
+vim.keymap.set({ 'n', 'v' }, '<leader>q', '<cmd>echo "oops, use leader-c, or :q"<cr>', { desc = 'Quit' })
+-- vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
+vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = 'Toggle Tree' })
 
-
-vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
-vim.keymap.set({ 'n' }, '<leader>|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
-vim.keymap.set({ 'n' }, '<leader>-', '<cmd>split<cr>', { desc = 'Horizontal split' })
+-- vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
+-- vim.keymap.set({ 'n' }, '<leader>|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
+-- vim.keymap.set({ 'n' }, '<leader>-', '<cmd>split<cr>', { desc = 'Horizontal split' })
 
 -- Buffer related
 vim.keymap.set({ 'n' }, '<leader>b|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
 vim.keymap.set({ 'n' }, '<leader>b-', '<cmd>split<cr>', { desc = 'Vertical split' })
-vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Close other tabs' })
-vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>BufferClose<cr>', { desc = 'Close current tab' })
-vim.keymap.set({ 'n' }, '<leader>bu', '<cmd>Telescope undo<cr>', { desc = 'Buffer undo tree' })
-vim.keymap.set({ 'n' }, '<leader>bn', '<cmd>BufferMoveNext<cr>', { desc = 'Buffer tab move next' })
-vim.keymap.set({ 'n' }, '<leader>bp', '<cmd>BufferMovePrevious<cr>', { desc = 'Buffer tab move next' })
-vim.keymap.set('n', '<leader>bt', "<cmd>lua require('neo-tree.command').execute({action = 'focus', source='filesystem', reveal=true})<cr>", { desc = 'Open current file in tree' })
+vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Buffer close [o]ther' })
+vim.keymap.set({ 'n' }, '<leader>bn', '<cmd>enew<cr>', { desc = '[B]uffer [n]ew' })
+vim.keymap.set({ 'n' }, '<leader>bc', '<cmd>bd<cr>', { desc = '[B]uffer [c]lose' })
+vim.keymap.set({ 'n' }, '<leader>bu', '<cmd>Telescope undo<cr>', { desc = '[B]uffer [u]ndo tree' })
+-- vim.keymap.set({ 'n' }, '<leader>bn', '<cmd>BufferMoveNext<cr>', { desc = 'Buffer tab move next' })
+-- vim.keymap.set({ 'n' }, '<leader>bp', '<cmd>BufferMovePrevious<cr>', { desc = 'Buffer tab move next' })
+vim.keymap.set({ 'n' }, '<leader>bl', '<cmd>Telescope buffers<cr>', { desc = '[B]uffer [l]ist' })
+-- vim.keymap.set('n', '<leader>bt', "<cmd>lua require('neo-tree.command').execute({action = 'focus', source='filesystem', reveal=true})<cr>", { desc = 'Open current file in tree' })
 
--- Just in case keys 
-vim.keymap.set({ 'n' }, '<leader>jr', ":.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>", { desc = 'Replace word under cursor' })
-vim.keymap.set({ 'v' }, '<leader>jr', "y:.,$s/<C-R>\"/<C-R>\"/gc<Left><Left><Left>", { desc = 'Replace selection' })
+-- Just in case keys
+vim.keymap.set({ 'n' }, '<leader>jr', ':.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>', { desc = 'Replace word under cursor' })
+vim.keymap.set({ 'v' }, '<leader>jr', 'y:.,$s/<C-R>"/<C-R>"/gc<Left><Left><Left>', { desc = 'Replace selection' })
 
 -- Interface quick toggle
-vim.keymap.set({ 'n' }, "<leader>tw", function()
-	vim.wo.wrap = not vim.wo.wrap
+vim.keymap.set({ 'n' }, '<leader>tw', function()
+  vim.wo.wrap = not vim.wo.wrap
 end, { desc = '[T]oggle [w]rap' })
 
-vim.keymap.set({ 'n' }, "<leader>ts", function()
-	vim.wo.spell = not vim.wo.spell
+vim.keymap.set({ 'n' }, '<leader>ts', function()
+  vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [s]pellcheck' })
 
-vim.keymap.set({ 'n' }, '<leader>tz', "<cmd>ZenMode<cr>", { desc = '[T]oggle [Z]enMode' })
 
-vim.keymap.set({ 'n' }, "<leader>td", function()
-	if vim.diagnostic.is_disabled(0) then
-		vim.diagnostic.enable(0)
-	else
-		vim.diagnostic.disable(0)
-	end
-	vim.wo.spell = not vim.wo.spell
+vim.keymap.set({ 'n' }, '<leader>td', function()
+  if vim.diagnostic.is_disabled(0) then
+    vim.diagnostic.enable(0)
+  else
+    vim.diagnostic.disable(0)
+  end
+  vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [d]iagnostics' })
 
 -- NOTE: Telescope bindings are in plugins/telescope.lua
 -- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua
 -- NOTE: Git bindings are in plugins/gitsigns.lua
-

@@ -12,11 +12,12 @@ vim.g.have_nerd_font = true
 -- [[ Setting options ]]
 require 'options'
 
--- [[ Basic Keymaps ]]
-require 'keymaps'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Basic Keymaps ]]
+require 'keymaps'
 
 -- [[ Finalize initialization ]]
 require 'finally'
