@@ -42,7 +42,8 @@ return {
         mappings = {
           -- ['\\'] = 'close_window',
           ["z"] = "expand_all_nodes",
-          ["C"] = "close_all_nodes",
+          ["c"] = "close_node",
+          ["C"] = "copy",
           ["Z"] = "close_all_nodes",
         },
       },
