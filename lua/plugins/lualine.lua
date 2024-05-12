@@ -13,12 +13,23 @@ return {
         return ftype_base.update_status()
       end
     end
+    local has_nonsaved_buf = function()
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+
+        if vim.api.nvim_buf_get_option(buf, 'modified') then
+          return ''
+          
+        end
+      end
+      return ''
+    end
     require('lualine').setup {
       options = {
         icons_enabled = true,
         theme = 'auto',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
+
         disabled_filetypes = {
           statusline = { 'neo-tree' },
           winbar = {},
@@ -36,6 +47,7 @@ return {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = {
+          { has_nonsaved_buf, color = { fg = '#ffaa88', bg = 'black' }, separator = { left = '', right = '' } },
           {
             'filename',
             file_status = true, -- Displays file status (readonly status, modified status)
@@ -73,6 +85,7 @@ return {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {
+          { has_nonsaved_buf, color = { fg = '#ffaa88', bg = 'black' }, separator = { left = '', right = '' } },
           {
             'filename',
             file_status = true, -- Displays file status (readonly status, modified status)
@@ -101,7 +114,6 @@ return {
       inactive_winbar = {},
 
       extensions = {},
-
     }
   end,
 }
