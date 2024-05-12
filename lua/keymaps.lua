@@ -16,10 +16,13 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', '<C-Left>', '<cmd>BufferPrevious<cr>', { desc = 'Move focus to the prev tab' })
 
 -- Harpoon bindings
-vim.keymap.set('n', '<leader><leader>', '<cmd>:lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = 'Harpoon quick menu' })
-vim.keymap.set('n', '<leader>a', '<cmd>:lua require("harpoon.mark").add_file()<cr>', { desc = 'Harpoon add' })
-vim.keymap.set('n', '<C-Right>', '<cmd>:lua require("harpoon.ui").nav_next()<cr>', { desc = 'Next harpooned file' })
-vim.keymap.set('n', '<C-Left>', '<cmd>:lua require("harpoon.ui").nav_prev()<cr>', { desc = 'Prev harpooned file' })
+vim.keymap.set('n', '<C-Space>', '<cmd>:lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = 'Harpoon quick menu' })
+vim.keymap.set('n', '<C-h>', '<cmd>:lua require("harpoon.mark").add_file()<cr>', { desc = 'Harpoon add' })
+-- vim.keymap.set('n', '<C-Right>', '<cmd>:lua require("harpoon.ui").nav_next()<cr>', { desc = 'Next harpooned file' })
+-- vim.keymap.set('n', '<C-Left>', '<cmd>:lua require("harpoon.ui").nav_prev()<cr>', { desc = 'Prev harpooned file' })
+vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
+vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
+
 vim.keymap.set('n', '<C-j>', '<cmd>:lua require("harpoon.ui").nav_file(1)<cr>', { desc = 'Harpoon file[1]' })
 vim.keymap.set('n', '<C-k>', '<cmd>:lua require("harpoon.ui").nav_file(2)<cr>', { desc = 'Harpoon file[2]' })
 vim.keymap.set('n', '<C-l>', '<cmd>:lua require("harpoon.ui").nav_file(3)<cr>', { desc = 'Harpoon file[3]' })
@@ -49,7 +52,7 @@ vim.keymap.set({ 'n', 'v', 'i' }, '<ScrollWheelDown>', '<C-E>')
 -- Disable some defaults
 vim.keymap.set('n', '<S-Home>', '<Nop>')
 vim.keymap.set('n', '<S-End>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
 -- vim.keymap.set({ 'n', 'v' }, '<C-j>', '<Nop>')
 -- vim.keymap.set({ 'n', 'v' }, '<C-k>', '<Nop>')
 -- vim.keymap.set({ 'n', 'v' }, '<C-l>', '<Nop>')
@@ -108,19 +111,20 @@ vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewi
 -- Core Interface keys
 --
 -------------------------------------------------------------------------------
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:wa!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file' })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file' })
 -- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
 -- vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
-vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = 'Close current buffer' })
-vim.keymap.set({ 'n' }, '<leader>d', '<cmd>Telescope buffers<cr>', { desc = '[d]ocuments open' })
+-- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = 'Close current buffer' })
+vim.keymap.set({ 'n' }, '<leader><leader>', '<cmd>Telescope buffers<cr>', { desc = 'All open buffers' })
 vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
 -- Leader main menu
 -- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
-vim.keymap.set({ 'n', 'v' }, '<leader>q', '<cmd>echo "oops, use leader-c, or :q"<cr>', { desc = 'Quit' })
+-- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<cmd>echo "oops, use leader-c, or :q"<cr>', { desc = 'Quit' })
+vim.keymap.set({ 'n' }, '<leader>q', '<cmd>bd<cr>', { desc = 'Close current buffer' })
 -- vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
-vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = 'Toggle Tree' })
 
+vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = 'Toggle Tree' })
 -- vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
 -- vim.keymap.set({ 'n' }, '<leader>|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
 -- vim.keymap.set({ 'n' }, '<leader>-', '<cmd>split<cr>', { desc = 'Horizontal split' })

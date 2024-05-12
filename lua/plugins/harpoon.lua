@@ -2,6 +2,9 @@ return {
   'ThePrimeagen/harpoon',
   config = function()
     require('harpoon').setup {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      },
       global_settings = {
         -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
         save_on_toggle = false,
@@ -16,16 +19,16 @@ return {
         tmux_autoclose_windows = false,
 
         -- filetypes that you want to prevent from adding to the harpoon list menu.
-        excluded_filetypes = { 'harpoon' },
+        excluded_filetypes = { 'harpoon', 'neo-tree', "help" },
 
         -- set marks specific to each git branch inside git repository
         mark_branch = false,
 
         -- enable tabline with harpoon marks
-        tabline = true,
+        tabline = false,
         tabline_prefix = '   ',
         tabline_suffix = '   ',
       },
     }
-  end, 
+  end,
 }
