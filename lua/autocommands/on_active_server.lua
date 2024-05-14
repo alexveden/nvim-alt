@@ -8,6 +8,10 @@ vim.api.nvim_create_autocmd('FocusGained', {
 	  -- print(server[1])
     f:write(server[1])
     f:close()
+
+	  f = assert(io.open("/tmp/nvim_active_cwd", "w"))
+    f:write(vim.fn.getcwd())
+    f:close()
 	end,
 })
 
