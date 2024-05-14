@@ -1,34 +1,19 @@
 return {
   'ThePrimeagen/harpoon',
+  branch = 'harpoon2',
   config = function()
-    require('harpoon').setup {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      },
-      global_settings = {
-        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
-        save_on_toggle = false,
+    local harpoon = require("harpoon")
 
-        -- saves the harpoon file upon every change. disabling is unrecommended.
-        save_on_change = true,
+    -- REQUIRED
+    harpoon:setup({
+      settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = true,
 
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
-        enter_on_sendcmd = false,
+      }
+    })
+    -- REQUIRED
 
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-        tmux_autoclose_windows = false,
 
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
-        excluded_filetypes = { 'harpoon', 'neo-tree', "help" },
-
-        -- set marks specific to each git branch inside git repository
-        mark_branch = false,
-
-        -- enable tabline with harpoon marks
-        tabline = false,
-        tabline_prefix = '   ',
-        tabline_suffix = '   ',
-      },
-    }
   end,
 }

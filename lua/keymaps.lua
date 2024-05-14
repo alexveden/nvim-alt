@@ -16,17 +16,17 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', '<C-Left>', '<cmd>BufferPrevious<cr>', { desc = 'Move focus to the prev tab' })
 
 -- Harpoon bindings
-vim.keymap.set('n', '<C-Space>', '<cmd>:lua require("harpoon.ui").toggle_quick_menu()<cr>', { desc = 'Harpoon quick menu' })
-vim.keymap.set('n', '<C-h>', '<cmd>:lua require("harpoon.mark").add_file()<cr>', { desc = 'Harpoon add' })
--- vim.keymap.set('n', '<C-Right>', '<cmd>:lua require("harpoon.ui").nav_next()<cr>', { desc = 'Next harpooned file' })
--- vim.keymap.set('n', '<C-Left>', '<cmd>:lua require("harpoon.ui").nav_prev()<cr>', { desc = 'Prev harpooned file' })
+local harpoon = require('harpoon')
+vim.keymap.set("n", "<C-h>", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-Space>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
+
 vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
 vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
-
-vim.keymap.set('n', '<C-j>', '<cmd>:lua require("harpoon.ui").nav_file(1)<cr>', { desc = 'Harpoon file[1]' })
-vim.keymap.set('n', '<C-k>', '<cmd>:lua require("harpoon.ui").nav_file(2)<cr>', { desc = 'Harpoon file[2]' })
-vim.keymap.set('n', '<C-l>', '<cmd>:lua require("harpoon.ui").nav_file(3)<cr>', { desc = 'Harpoon file[3]' })
-vim.keymap.set('n', '<C-;>', '<cmd>:lua require("harpoon.ui").nav_file(4)<cr>', { desc = 'Harpoon file[4]' })
 
 -- Split/TMUX navigation
 vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up' })
@@ -62,7 +62,7 @@ vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>') 
 
 -------------------------------------------------------------------------------
 --
