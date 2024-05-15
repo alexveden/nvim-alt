@@ -5,7 +5,7 @@
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Set 'p' to paste replacing selection
+-- Set 'p' to paste, without replacing default register by selection
 vim.cmd 'xnoremap p P'
 
 -------------------------------------------------------------------------------
@@ -21,6 +21,7 @@ vim.cmd 'xnoremap p P'
 -- Harpoon bindings
 local harpoon = require 'harpoon'
 vim.keymap.set('n', '<C-h>', function()
+  print("Harpooned: "..vim.fn.expand('%'))
   harpoon:list():add()
 end)
 vim.keymap.set('n', '<C-Space>', function()
