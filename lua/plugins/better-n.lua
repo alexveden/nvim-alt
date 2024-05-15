@@ -2,7 +2,7 @@ return {
   {
     "jonatan-branting/nvim-better-n",
     lazy = true,
-    enabled = false,
+    enabled = true,
     event = "BufEnter",
     commit = "2e2e0834b7b9f0fbeaebefc030934e3f1c2c5939",
     config = function()
@@ -49,6 +49,12 @@ return {
           -- git hunk
           ["]g"] = {previous = "[g", next = "]g"},
           ["[g"] = {previous = "[g", next = "]g"},
+          -- quick fix
+          ["]q"] = {previous = "[q", next = "]q"},
+          ["[q"] = {previous = "[q", next = "]q"},
+          -- Jupyter cell
+          ["]j"] = {previous = "[j", next = "]j"},
+          ["[j"] = {previous = "[j", next = "]j"},
           -- next fold
           -- ["z<Up>"] = {previous = "zk", next = "zj"},
           -- ["z<Down>"] = {previous = "zk", next = "zj"},
