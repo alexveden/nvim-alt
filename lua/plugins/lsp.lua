@@ -64,8 +64,8 @@ return {
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          map('[g', vim.diagnostic.goto_prev, 'Previous diagnostic')
-          map(']g', vim.diagnostic.goto_next, 'Next diagnostic')
+          map('[d', vim.diagnostic.goto_prev, 'Previous [d]iagnostic')
+          map(']d', vim.diagnostic.goto_next, 'Next [d]iagnostic')
           map('<leader>lD', require('telescope.builtin').diagnostics, '[D]iagnostics')
 
           if client.supports_method 'textDocument/codeAction' then

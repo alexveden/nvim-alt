@@ -15,9 +15,9 @@ local toggle_qf = function()
   end
 end
 
-vim.keymap.set({ 'n', 'v' }, '<leader>q', toggle_qf, { desc = '[Q]ickfix window' })
-vim.keymap.set({ 'n'}, ']q', "<cmd>cnext<cr>", { desc = '[Q]ickfix ] next' })
-vim.keymap.set({ 'n'}, '[q', "<cmd>cprev<cr>", { desc = '[Q]ickfix [ prev' })
+vim.keymap.set({ 'n', 'v' }, '<leader>q', toggle_qf, { desc = '[q]ickfix window' })
+vim.keymap.set({ 'n'}, ']q', "<cmd>cnext<cr>", { desc = 'Next [q]ickfix' })
+vim.keymap.set({ 'n'}, '[q', "<cmd>cprev<cr>", { desc = 'Previous [q]ickfix' })
 
 return {
   'kevinhwang91/nvim-bqf',
