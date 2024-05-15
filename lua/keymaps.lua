@@ -5,6 +5,9 @@
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Set 'p' to paste replacing selection
+vim.cmd 'xnoremap p P'
+
 -------------------------------------------------------------------------------
 --
 -- Navigation keys
@@ -16,14 +19,26 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- vim.keymap.set('n', '<C-Left>', '<cmd>BufferPrevious<cr>', { desc = 'Move focus to the prev tab' })
 
 -- Harpoon bindings
-local harpoon = require('harpoon')
-vim.keymap.set("n", "<C-h>", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-Space>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+local harpoon = require 'harpoon'
+vim.keymap.set('n', '<C-h>', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<C-Space>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
+vim.keymap.set('n', '<C-j>', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<C-k>', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<C-l>', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<C-;>', function()
+  harpoon:list():select(4)
+end)
 
 vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
 vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
@@ -62,7 +77,7 @@ vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>') 
+vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 
 -------------------------------------------------------------------------------
 --
@@ -119,10 +134,9 @@ vim.keymap.set({ 'n' }, '<leader><leader>', '<cmd>Telescope buffers<cr>', { desc
 vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
 -- Leader main menu
--- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:q<cr>', { desc = 'Quit' })
--- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<cmd>echo "oops, use leader-c, or :q"<cr>', { desc = 'Quit' })
-vim.keymap.set({ 'n' }, '<leader>q', '<cmd>bd<cr>', { desc = '[Q]uit current buffer' })
--- vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Tree' })
+-- NOTE: Quick fix window in lua/plugins/quickfix.lua
+-- vim.keymap.set({ 'n', 'v' }, '<leader>q', '<Esc>:copen<cr>', { desc = '[Q]ickfix window' })
+vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose current buffer/window' })
 
 vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = '[o]pen Neo Tree' })
 -- vim.keymap.set({ 'n' }, '<leader>n', '<cmd>enew<cr>', { desc = 'New file' })
@@ -154,7 +168,6 @@ vim.keymap.set({ 'n' }, '<leader>ts', function()
   vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [s]pellcheck' })
 
-
 vim.keymap.set({ 'n' }, '<leader>td', function()
   if vim.diagnostic.is_disabled(0) then
     vim.diagnostic.enable(0)
@@ -167,3 +180,4 @@ end, { desc = '[T]oggle [d]iagnostics' })
 -- NOTE: Telescope bindings are in plugins/telescope.lua
 -- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua
 -- NOTE: Git bindings are in plugins/gitsigns.lua
+-- NOTE: Quick fix window in lua/plugins/quickfix.lua

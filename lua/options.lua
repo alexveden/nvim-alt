@@ -5,7 +5,7 @@
 
 -- Make line numbers default
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -85,6 +85,9 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevelstart = 99
 vim.opt.colorcolumn = '89'
+
+-- rip grep as grep program (with source code grepping)
+vim.opt.grepprg = "rg --vimgrep"
 
 local function escape(str)
   -- You need to escape these characters to work correctly

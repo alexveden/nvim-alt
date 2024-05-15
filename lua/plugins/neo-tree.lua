@@ -148,7 +148,7 @@ return {
             ['C'] = 'copy',
             ['Z'] = 'close_all_nodes',
             ['<C-h>'] = { command = harpoon_mapping, desc = '[h]arpoon add' },
-            ['h'] = { command = harpoon_mapping, desc = '[h]arpoon add' },
+            -- ['h'] = { command = harpoon_mapping, desc = '[h]arpoon add' },
             ['<C-d>'] = 'noop',
             ['<C-u>'] = 'noop',
             ['<C-PageUp>'] = { 'scroll_preview', config = { direction = 10 } },
