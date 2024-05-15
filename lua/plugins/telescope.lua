@@ -57,6 +57,47 @@ return {
       local telescope_actions = require 'telescope.actions'
       local builtin = require 'telescope.builtin'
 
+      local add_to_harpoon = function()
+        local isok, harpoon = pcall(require, 'harpoon')
+        if not isok then
+          print 'No harpoon installed, skipping'
+          return
+        end
+
+        local action_state = require 'telescope.actions.state'
+        local selection = action_state.get_selected_entry()[1]
+        if not selection then
+          return
+        end
+
+        local colon_idx = string.find(selection, ':')
+        if colon_idx then
+          selection = string.sub(selection, 0, colon_idx - 1)
+        end
+
+        local Path = require 'plenary.path'
+
+        local path = Path:new(selection)
+        local norm_path = path:make_relative(vim.loop.cwd())
+
+        if not path:exists() then
+          print('Path not exists: ' .. selection)
+          return
+        end
+
+        local item = {
+          value = norm_path,
+          context = {
+            row = 1,
+            col = 1,
+          },
+        }
+        harpoon:list():add(item)
+
+        print('Harpooned: ' .. norm_path)
+        -- print(vim.inspect(selection[1]))
+      end
+
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -73,6 +114,7 @@ return {
 
               ['<C-PageUp>'] = telescope_actions.preview_scrolling_up,
               ['<C-PageDown>'] = telescope_actions.preview_scrolling_down,
+              ['<C-h>'] = add_to_harpoon,
             },
           },
         },
