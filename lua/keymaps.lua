@@ -6,7 +6,11 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Set 'p' to paste, without replacing default register by selection
-vim.cmd 'xnoremap p P'
+-- vim.cmd 'xnoremap p P'
+vim.cmd [[xnoremap p "_dP]]
+
+-- yank and end cursor at the last position
+vim.api.nvim_set_keymap("x", "y", "ygv<Esc>", { noremap = true, silent = true })
 
 -------------------------------------------------------------------------------
 --
