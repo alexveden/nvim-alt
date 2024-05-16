@@ -110,10 +110,13 @@ return {
         ['<C-PageUp>'] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 
+
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             if cmp.get_active_entry() then
               cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+            else
+              fallback()
             end
           elseif luasnip.in_snippet() or luasnip.choice_active() then
             luasnip.unlink_current()
