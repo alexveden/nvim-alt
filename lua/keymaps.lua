@@ -45,23 +45,23 @@ vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<cmd>echo "oops, use harpooned C-jkl;
 vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<cmd>echo "oops, use harpooned C-jkl;"<cr>')
 
 -- Split/TMUX navigation
-vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up' })
-vim.keymap.set('n', '<S-Down>', ':<C-U>TmuxNavigateDown<cr>', { desc = 'Split move down' })
-vim.keymap.set('n', '<S-Left>', ':<C-U>TmuxNavigateLeft<cr>', { desc = 'Split move left' })
-vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split move right' })
+vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up', silent=true })
+vim.keymap.set('n', '<S-Down>', ':<C-U>TmuxNavigateDown<cr>', { desc = 'Split move down', silent=true })
+vim.keymap.set('n', '<S-Left>', ':<C-U>TmuxNavigateLeft<cr>', { desc = 'Split move left', silent=true })
+vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split move right', silent=true })
 
 -- Text navigation
-vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char' })
-vim.keymap.set({ 'n', 'v' }, '<End>', 'g_', { desc = 'Jump to last non-blank char' })
+vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char', silent=true })
+vim.keymap.set({ 'n', 'v' }, '<End>', 'g_', { desc = 'Jump to last non-blank char', silent=true })
 -- vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up' })
 -- vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down' })
 -- Map PageUp/Dn as scroll (use s -> letters for navigation / hops)
-vim.keymap.set({ 'n', 'v' }, '<PageUp>', '20<C-y>', { desc = 'Jump 10 up' })
-vim.keymap.set({ 'n', 'v' }, '<PageDown>', '20<C-e>', { desc = 'Jump 10 down' })
-vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank char' })
-vim.keymap.set({ 'i' }, '<End>', '<C-o>g_', { desc = 'Jump to last non-blank char' })
-vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up' })
-vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down' })
+vim.keymap.set({ 'n', 'v' }, '<PageUp>', '20<C-y>', { desc = 'Jump 10 up', silent=true })
+vim.keymap.set({ 'n', 'v' }, '<PageDown>', '20<C-e>', { desc = 'Jump 10 down', silent=true })
+vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank char', silent=true })
+vim.keymap.set({ 'i' }, '<End>', '<C-o>g_', { desc = 'Jump to last non-blank char', silent=true })
+vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent=true })
+vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent=true })
 vim.keymap.set('n', 'G', 'Gzz', { desc = 'End and center screen' })
 
 -- Mouse scroll fix ??
@@ -81,7 +81,7 @@ vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
--- vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 
 -------------------------------------------------------------------------------
 --
@@ -93,7 +93,7 @@ vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
 vim.keymap.set('n', 'za', 'zazz', { desc = 'Fold toggle + center' })
 vim.keymap.set('n', 'zc', 'zczz', { desc = 'Fold close + center' })
 vim.keymap.set('n', 'zm', 'zmzz', { desc = 'Fold open + center' })
-vim.keymap.set('n', 'zz', 'zazz', { desc = 'Fold open + center' })
+-- vim.keymap.set('n', 'zz', 'zazz', { desc = 'Fold open + center' })
 vim.keymap.set('n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'foldlevel=0' })
 vim.keymap.set('n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'foldlevel=1' })
 vim.keymap.set('n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'foldlevel=2' })
@@ -102,9 +102,9 @@ vim.keymap.set('n', '<C-PageUp>', '<cmd>norm[f<cr>', { desc = 'Jump next functio
 vim.keymap.set('n', '<C-PageDown>', '<cmd>norm]f<cr>', { desc = 'Jump next function below' })
 
 -- Code jumps
-vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous' })
-vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous' })
-vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous' })
+vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous', silent=true })
+vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous', silent=true })
+vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous', silent=true })
 
 -- Tab indents
 -- NOTE: Tab binding must be after <Jump-previous
@@ -114,10 +114,10 @@ vim.keymap.set('v', '<Tab>', '>gv', { desc = 'Indent right' })
 vim.keymap.set('v', '<S-Tab>', '<gv', { desc = 'Indent left ' })
 
 -- Move lines of code
-vim.keymap.set('n', '<C-Up>', '<cmd>m .-2<CR>==', { desc = 'Move line Up' })
-vim.keymap.set('n', '<C-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line Down' })
-vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection Up' })
-vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down' })
+vim.keymap.set('n', '<C-Up>', '<cmd>m .-2<CR>==', { desc = 'Move line Up', silent=true })
+vim.keymap.set('n', '<C-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line Down', silent=true })
+vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection Up', silent=true })
+vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down', silent=true })
 
 -- Code comments
 vim.keymap.set('n', '<C-_>', function()
