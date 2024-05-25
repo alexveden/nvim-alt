@@ -82,8 +82,11 @@ return {
       vim.keymap.set({ 'i', 'v' }, '<Up>', function()
         --if not ls.in_snippet() then
         if not ls.locally_jumpable(1) then
-          -- vim.cmd 'norm! k'
-          vim.cmd('norm! ' .. vim.v.count .. 'k')
+          if vim.v.count > 1 then
+            vim.cmd('norm! ' .. vim.v.count .. 'k')
+          else
+            vim.cmd 'norm! k'
+          end
         else
           if ls.choice_active() then
             ls.change_choice(1)
@@ -94,7 +97,11 @@ return {
       vim.keymap.set({ 'i', 'v' }, '<Down>', function()
         --if not ls.in_snippet() then
         if not ls.locally_jumpable(1) then
-          vim.cmd('norm! ' .. vim.v.count .. 'j')
+          if vim.v.count > 1 then
+            vim.cmd('norm! ' .. vim.v.count .. 'j')
+          else
+            vim.cmd 'norm! j'
+          end
         else
           if ls.choice_active() then
             ls.change_choice(-1)
