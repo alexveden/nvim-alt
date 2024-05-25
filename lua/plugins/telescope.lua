@@ -37,6 +37,7 @@ return {
         -- For major updates, this must be adjusted manually.
         version = '^1.0.0',
       },
+      { 'smartpde/telescope-recent-files' },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -120,6 +121,7 @@ return {
 
               ['<C-PageUp>'] = telescope_actions.preview_scrolling_up,
               ['<C-PageDown>'] = telescope_actions.preview_scrolling_down,
+              ['<C-s>'] = telescope_actions.select_vertical,
               ['<C-h>'] = add_to_harpoon,
             },
           },
@@ -127,6 +129,10 @@ return {
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
+          },
+          recent_files = {
+            -- This extension's options, see below.
+            only_cwd=true,
           },
         },
       }
@@ -136,14 +142,15 @@ return {
       pcall(require('telescope').load_extension, 'ui-select')
       require('telescope').load_extension 'undo'
       require('telescope').load_extension 'luasnip'
-      require("telescope").load_extension("live_grep_args")
+      require('telescope').load_extension 'live_grep_args'
+      require('telescope').load_extension 'recent_files'
 
       -- See `:help telescope.builtin`
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]iles' })
       vim.keymap.set('n', '<leader>fs', '<cmd>Telescope luasnip<CR>', { desc = '[S]nippets' })
-      vim.keymap.set('n', '<leader>fw', require("telescope").extensions.live_grep_args.live_grep_args, { desc = '[w]ord' })
+      vim.keymap.set('n', '<leader>fw', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>fW', function()
         require('telescope.builtin').live_grep {
           additional_args = function(args)
@@ -157,6 +164,7 @@ return {
       vim.keymap.set('n', '<leader>ft', '<cmd>:TodoTelescope keywords=TODO,FIX,BUG,FIXME<CR>', { desc = '[T]ODOs and other' })
       vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = '[M]an pages' })
       --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.api.nvim_set_keymap('n', '<Leader><Leader>', [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { noremap = true, silent = true })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<C-f>', function()
