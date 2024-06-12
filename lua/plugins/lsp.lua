@@ -49,6 +49,8 @@ return {
           ---@diagnostic disable-next-line: inject-field
           client.server_capabilities.document_formatting = true
 
+          -- client.server_capabilities.semanticTokensProvider = nil
+
           local map = function(keys, func, desc, mode)
             if not mode then
               mode = 'n'
@@ -86,7 +88,8 @@ return {
           end
 
           if client.supports_method 'textDocument/signatureHelp' then
-            map('<leader>lh', vim.lsp.buf.signature_help, 'Signature [H]elp')
+            map('<c-q>', vim.lsp.buf.signature_help, 'Signature [H]elp')
+            map('K', vim.lsp.buf.signature_help, 'Signature [H]elp')
           end
 
           -- Jump to the implementation of the word under your cursor.
@@ -201,6 +204,7 @@ return {
         clangd = {
           capabilities = {
             offsetEncoding = "utf-16",
+            semanticTokensProvider = nil,
           }
         },
         -- gopls = {},

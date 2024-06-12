@@ -2,7 +2,7 @@ return {
     {
         "ray-x/lsp_signature.nvim",
         --
-        -- enabled = false,
+        enabled = false,
         event = "BufRead",
         tag = "v0.2.0",
         config = function(_, _)
