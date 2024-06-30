@@ -75,7 +75,9 @@ return {
           end
 
           -- if client.supports_method 'textDocument/formatting' then
-          map('<leader>lf', vim.lsp.buf.format, 'code [f]ormat', { 'n', 'v' })
+          map('<leader>lf', function()
+            vim.lsp.buf.format { timeout_ms = 5000 }
+          end, 'code [f]ormat', { 'n', 'v' })
           -- end
 
           if client.supports_method 'textDocument/references' then
@@ -88,7 +90,7 @@ return {
           end
 
           if client.supports_method 'textDocument/signatureHelp' then
-            map('<c-q>', vim.lsp.buf.signature_help, 'Signature [H]elp')
+            map('<c-q>', vim.lsp.buf.signature_help, 'Signature [H]elp', {'n', 'i'})
             map('K', vim.lsp.buf.signature_help, 'Signature [H]elp')
           end
 
@@ -203,9 +205,9 @@ return {
       local servers = {
         clangd = {
           capabilities = {
-            offsetEncoding = "utf-16",
+            offsetEncoding = 'utf-16',
             semanticTokensProvider = nil,
-          }
+          },
         },
         -- gopls = {},
         -- pyright = {},
