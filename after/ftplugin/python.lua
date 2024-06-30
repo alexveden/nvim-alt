@@ -95,16 +95,22 @@ end, {
   range = 2, -- or a visual selection
 })
 
+vim.api.nvim_set_hl(0, "@hlcell.comment", {fg = "#ffffff"})
+
 --
 -- Key bindings
 --
+
 -- Universal Jupyter + Python keys
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>jf', ':lua require("text_objects").f_string_prepend()<CR>', { desc = 'add f- prefix for string' })
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { desc = '[J]upyter QtConsole Run & [A]ttach' , silent = true })
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' , silent = true })
 
+-- REPL capabilities for all selected python code
+vim.api.nvim_buf_set_keymap(0, 'v', '<C-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run to next', silent = true })
+vim.api.nvim_buf_set_keymap(0, 'i', '<S-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
+
 if is_jupyter then
-  vim.api.nvim_set_hl(0, "@hlcell.comment", {fg = "#ffffff"})
   
   -- NOTE: JupyterAttach / JupyterExecute commands see rplugin/python3/jupyter.py
 
@@ -129,7 +135,6 @@ if is_jupyter then
   -- can be jumpable back
   vim.api.nvim_buf_set_keymap(0, 'n', '<C-CR>', "m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
   vim.api.nvim_buf_set_keymap(0, 'i', '<C-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'v', '<C-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run to next', silent = true })
 
   -- Execute in place command comment
   -- mark j at current cursor position
@@ -138,7 +143,6 @@ if is_jupyter then
   -- jump back to the same position
   vim.api.nvim_buf_set_keymap(0, 'n', '<S-CR>', "m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
   vim.api.nvim_buf_set_keymap(0, 'v', '<S-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'i', '<S-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
 
   vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', '[j', { desc = '' })
   vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', ']j', { desc = '' })
