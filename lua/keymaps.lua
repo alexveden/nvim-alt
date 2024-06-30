@@ -56,14 +56,14 @@ vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split 
 
 -- Text navigation
 vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char', silent=true })
-vim.keymap.set({ 'n', 'v' }, '<End>', 'g_', { desc = 'Jump to last non-blank char', silent=true })
+vim.keymap.set({ 'n', 'v' }, '<End>', 'g_l', { desc = 'Jump to last non-blank char', silent=true })
 vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up', silent=true })
 vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down' , silent=true})
 -- Map PageUp/Dn as scroll (use s -> letters for navigation / hops)
 -- vim.keymap.set({ 'n', 'v' }, '<PageUp>', '20<C-y>zz', { desc = 'Jump 10 up', silent=true })
 -- vim.keymap.set({ 'n', 'v' }, '<PageDown>', '20<C-e>zz', { desc = 'Jump 10 down', silent=true })
 vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank char', silent=true })
-vim.keymap.set({ 'i' }, '<End>', '<C-o>g_', { desc = 'Jump to last non-blank char', silent=true })
+vim.keymap.set({ 'i' }, '<End>', '<C-o>g_<C-o>l', { desc = 'Jump to last non-blank char', silent=true })
 vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent=true })
 vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent=true })
 vim.keymap.set('n', 'G', 'Gzz', { desc = 'End and center screen' })
