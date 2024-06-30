@@ -79,6 +79,12 @@ return {
       },
       snippet = {
         expand = function(args)
+          -- 2024-06-03 fixing CEX macro expansion buf i.e. for$array
+          local cex_macro_regex = '(%w+)%$(%w+)(%(.*%))'
+          if string.match(args.body, cex_macro_regex) then
+            -- replace $ dollar by $$, this makes macro expand well
+            args.body, _ = string.gsub(args.body, cex_macro_regex, '%1$$%2%3')
+          end
           -- This for expanding functions from LSP
           luasnip.lsp_expand(args.body)
           -- prevent snippet like behavior
@@ -89,6 +95,8 @@ return {
             -- we are in the function end, goto inside parenthesis
             vim.cmd 'normal! h'
           end
+          --
+          --
         end,
       },
       duplicates = {
@@ -109,7 +117,6 @@ return {
       mapping = {
         ['<C-PageUp>'] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
         ['<C-PageDown>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
-
 
         ['<CR>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
