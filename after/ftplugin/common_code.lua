@@ -23,8 +23,24 @@ vim.api.nvim_buf_set_keymap(0,
     ":lua require('neogen').generate()<CR>",
     { desc = "Generate doc-string" })
 
+-- vim.api.nvim_buf_set_keymap(0,
+--     "i",
+--     "<C-k>",
+--     ":lua require('lsp_signature').toggle_float_win()<CR>",
+--     { desc = "Show signature" })
+
+vim.api.nvim_buf_set_keymap(0,
+    "i",
+    "<C-q>",
+    "<esc>:lua error('Use norm<K> or insert<Ctrl-k> for code help')<cr>",
+    { desc = "Show signature" })
+
 vim.api.nvim_buf_set_keymap(0,
     "n",
     "<C-q>",
-    ":lua require('lsp_signature').toggle_float_win()<CR>",
+    ":lua error('Use norm<K> or insert<Ctrl-k> for code help')<cr>",
     { desc = "Show signature" })
+
+-- Prevent new line comments insertion 
+-- print("remove new line comments")
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' })

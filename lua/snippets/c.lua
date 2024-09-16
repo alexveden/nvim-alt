@@ -26,6 +26,7 @@ local h = snutils.hint
 local is_unit_test_buf = function() return snutils.buffnmatch "test_.+%.c$" end
 
 return {
+  s({ trig = "..", snippetType="autosnippet" }, fmt("->")),
   s(
     "fmt1",
     fmt("To {title} {} {}.", {
@@ -34,43 +35,43 @@ return {
       title = c(1, { t "Mr.", t "Ms." }),
     })
   ),
-
-  s(
-    {trig="as", desc="Inserts assertion (atassert/uassert)"},
-    d(1, function()
-      if is_unit_test_buf() then
-        -- Switch to specific atassert call when in unit test
-        return sn(
-          nil,
-          fmta([[atassert(<expression> <eq> <val> && "<msg>");<fin>]], {
-            expression = i(1, "", h "boolean expression"),
-            eq = c(2, { t "==", t "!=", t "<", t ">", t ">=", t "<=" }),
-            val = i(3, "", h "value to check"),
-            msg = i(4, "", h "error message"),
-            fin = i(0),
-          })
-        )
-      else
-        -- regular code keep using uassert
-        return sn(
-          nil,
-          fmta([[uassert(<expression> <eq> <val> && "<msg>");<fin>]], {
-            expression = i(1, "", h "boolean expression"),
-            eq = c(2, { t "==", t "!=", t "<", t ">", t ">=", t "<=" }),
-            val = i(3, "", h "value to check"),
-            msg = i(4, "", h "error message"),
-            fin = i(0),
-          })
-        )
-      end
-    end)
-  ),
-  s(
-    "pf",
-    fmta([[printf("<format>\n"<values>);<fin>]], {
-      format = i(1, "", h "printf format"),
-      values = i(2, "", h "values to print"),
-      fin = i(0),
-    })
-  ),
+  --
+  -- s(
+  --   {trig="as", desc="Inserts assertion (atassert/uassert)"},
+  --   d(1, function()
+  --     if is_unit_test_buf() then
+  --       -- Switch to specific atassert call when in unit test
+  --       return sn(
+  --         nil,
+  --         fmta([[atassert(<expression> <eq> <val> && "<msg>");<fin>]], {
+  --           expression = i(1, "", h "boolean expression"),
+  --           eq = c(2, { t "==", t "!=", t "<", t ">", t ">=", t "<=" }),
+  --           val = i(3, "", h "value to check"),
+  --           msg = i(4, "", h "error message"),
+  --           fin = i(0),
+  --         })
+  --       )
+  --     else
+  --       -- regular code keep using uassert
+  --       return sn(
+  --         nil,
+  --         fmta([[uassert(<expression> <eq> <val> && "<msg>");<fin>]], {
+  --           expression = i(1, "", h "boolean expression"),
+  --           eq = c(2, { t "==", t "!=", t "<", t ">", t ">=", t "<=" }),
+  --           val = i(3, "", h "value to check"),
+  --           msg = i(4, "", h "error message"),
+  --           fin = i(0),
+  --         })
+  --       )
+  --     end
+  --   end)
+  -- ),
+  -- s(
+  --   "pf",
+  --   fmta([[printf("<format>\n"<values>);<fin>]], {
+  --     format = i(1, "", h "printf format"),
+  --     values = i(2, "", h "values to print"),
+  --     fin = i(0),
+  --   })
+  -- ),
 }

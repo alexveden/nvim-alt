@@ -1,6 +1,7 @@
 return {
   "L3MON4D3/cmp-luasnip-choice",
   lazy = true,
+  enabled = false,
   dependencies = {
     "L3MON4D3/LuaSnip",
   },

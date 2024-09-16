@@ -2,6 +2,7 @@ return {
   {
     'L3MON4D3/LuaSnip',
     lazy = true,
+    enabled = true,
     build = vim.fn.has 'win32' == 0 and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp" or nil,
     dependencies = { 'rafamadriz/friendly-snippets' },
     event = 'BufEnter',
@@ -15,6 +16,7 @@ return {
         history = false,
         delete_check_events = 'TextChanged',
         region_check_events = 'CursorMoved',
+        enable_autosnippets=true,
         ext_opts = {
           [types.insertNode] = {
             -- active = { hl_group = "@text.uri" },
@@ -47,7 +49,7 @@ return {
       require('luasnip.loaders.from_lua').load { paths = './lua/snippets' }
 
       -- link quarto to markdown snippets
-      ls.filetype_extend('quarto', { 'markdown' })
+      -- ls.filetype_extend('quarto', { 'markdown' })
 
       -- Mapping
       vim.keymap.set({ 'i', 'v' }, '<Right>', function()

@@ -1,4 +1,4 @@
--- [[ Basic Keymaps ]]
+-- [[ Basic Keymaps ]
 --  See `:help vim.keymap.set()`
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
@@ -28,7 +28,7 @@ vim.keymap.set('n', '<C-h>', function()
   print("Harpooned: "..vim.fn.expand('%'))
   harpoon:list():add()
 end)
-vim.keymap.set('n', '<C-Space>', function()
+vim.keymap.set('n', '<C-space>', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
 
@@ -66,6 +66,8 @@ vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank ch
 vim.keymap.set({ 'i' }, '<End>', '<C-o>g_<C-o>l', { desc = 'Jump to last non-blank char', silent=true })
 vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent=true })
 vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent=true })
+-- Control-Backspace
+vim.keymap.set({ 'i' }, '<C-H>', '<C-W>', { desc = 'Delete whole word'})
 vim.keymap.set('n', 'G', 'Gzz', { desc = 'End and center screen' })
 
 -- Mouse scroll fix ??
@@ -134,9 +136,11 @@ vim.keymap.set('v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewi
 -- Core Interface keys
 --
 -------------------------------------------------------------------------------
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file', silent=true})
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr><cmd>lua require("luasnip").unlink_current()<cr>', { desc = 'Save file', silent=true})
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<Esc>:w!<cr>', { desc = 'Save file', silent=true})
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<esc>:lua error("use <leader-s>")\n', { desc = 'Save file', silent=true})
 -- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>BufferClose<cr>', { desc = 'Close current buffer' })
--- vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
+vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
 -- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = 'Close current buffer' })
 vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
@@ -176,10 +180,10 @@ vim.keymap.set({ 'n' }, '<leader>ts', function()
 end, { desc = '[T]oggle [s]pellcheck' })
 
 vim.keymap.set({ 'n' }, '<leader>td', function()
-  if vim.diagnostic.is_disabled(0) then
-    vim.diagnostic.enable(0)
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
   else
-    vim.diagnostic.disable(0)
+    vim.diagnostic.enable(true)
   end
   vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [d]iagnostics' })

@@ -90,7 +90,7 @@ return {
           end
 
           if client.supports_method 'textDocument/signatureHelp' then
-            map('<c-q>', vim.lsp.buf.signature_help, 'Signature [H]elp', {'n', 'i'})
+            map('<c-k>', vim.lsp.buf.signature_help, 'Signature [H]elp', {'i'})
             map('K', vim.lsp.buf.signature_help, 'Signature [H]elp')
           end
 
@@ -108,7 +108,8 @@ return {
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[S]ymbols')
-          map('<C-d>', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
+          -- map('<C-d>', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
+          map('<C-d>', "<cmd>:lua error('use leader + ls')<cr>", 'Document Symbols')
           --
           -- -- Fuzzy find all the symbols in your current workspace.
           -- --  Similar to document symbols, except searches over your entire project.
@@ -162,7 +163,7 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      capabilities.textDocument.completion.completionItem.snippetSupport = false
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

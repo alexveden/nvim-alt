@@ -191,6 +191,10 @@ return {
             -- ['h'] = { command = harpoon_mapping, desc = '[h]arpoon add' },
             ['<C-d>'] = 'noop',
             ['<C-u>'] = 'noop',
+            -- Sync Ctrl+s to open splits for both neotree and telescope
+            ["s"] = "noop",
+            ["<C-s>"] = "open_vsplit",
+            ["S"] = "noop",
             ['<C-PageUp>'] = { 'scroll_preview', config = { direction = 10 } },
             ['<C-PageDown>'] = { 'scroll_preview', config = { direction = -10 } },
           },
