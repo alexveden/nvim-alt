@@ -23,22 +23,23 @@ return {
       -- 
       -- Normal mode
       -- 
-      require('which-key').register {
-        ['<leader>l'] = { name = '  [L]SP', _ = 'which_key_ignore' },
-        ['<leader>b'] = { name = '󰈙  [B]uffers', _ = 'which_key_ignore' },
-        ['<leader>f'] = { name = '  [F]ind', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '󰊢  [G]it', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '  [T]oggle', _ = 'which_key_ignore' },
-        ['<leader>j'] = { name = '  [J]ust in case', _ = 'which_key_ignore' },
+      require('which-key').add {
+        {'<leader>l', name = '  [L]SP'},
+        {'<leader>b', name = '󰈙  [B]uffers'},
+        {'<leader>f', name = '  [F]ind'},
+        {'<leader>g', name = '󰊢  [G]it'},
+        {'<leader>t', name = '  [T]oggle'},
+        {'<leader>j', name = '  [J]ust in case'},
       }
       --
       --Visual mode
       --
-      require('which-key').register({
-        ['<leader>l'] = { name = '  [L]SP', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '󰊢  [G]it', _ = 'which_key_ignore' },
-        ['<leader>j'] = { name = '  [J]ust in case', _ = 'which_key_ignore' },
-      }, { mode = 'v' })
+      require('which-key').add({
+        mode = {'v'},
+        {'<leader>l', name = '  [L]SP'},
+        {'<leader>g', name = '󰊢  [G]it'},
+        {'<leader>j', name = '  [J]ust in case'},
+      } )
     end,
   },
 }
