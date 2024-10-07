@@ -14,32 +14,32 @@
 --  config = function() ... end
 
 return {
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
 
-      -- 
+      --
       -- Normal mode
-      -- 
+      --
       require('which-key').add {
-        {'<leader>l', name = '  [L]SP'},
-        {'<leader>b', name = '󰈙  [B]uffers'},
-        {'<leader>f', name = '  [F]ind'},
-        {'<leader>g', name = '󰊢  [G]it'},
-        {'<leader>t', name = '  [T]oggle'},
-        {'<leader>j', name = '  [J]ust in case'},
+        { '<leader>l', name = '  [L]SP' },
+        { '<leader>b', name = '󰈙  [B]uffers' },
+        { '<leader>f', name = '  [F]ind' },
+        { '<leader>g', name = '󰊢  [G]it' },
+        { '<leader>t', name = '  [T]oggle' },
+        { '<leader>j', name = '  [J]ust in case' },
       }
       --
       --Visual mode
       --
-      require('which-key').add({
-        mode = {'v'},
-        {'<leader>l', name = '  [L]SP'},
-        {'<leader>g', name = '󰊢  [G]it'},
-        {'<leader>j', name = '  [J]ust in case'},
-      } )
+      require('which-key').add {
+        mode = { 'v' },
+        { '<leader>l', name = '  [L]SP' },
+        { '<leader>g', name = '󰊢  [G]it' },
+        { '<leader>j', name = '  [J]ust in case' },
+      }
     end,
   },
 }

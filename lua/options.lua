@@ -91,7 +91,7 @@ vim.opt.grepprg = "rg --vimgrep"
 
 local function escape(str)
   -- You need to escape these characters to work correctly
-  local escape_chars = [[;,."|\]]
+  local escape_chars = [[;,."|\]] .. "[]"
   return vim.fn.escape(str, escape_chars)
 end
 
