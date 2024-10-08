@@ -30,7 +30,7 @@ return {
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-      -- 'benfowler/telescope-luasnip.nvim',
+      'benfowler/telescope-luasnip.nvim',
       {
         'nvim-telescope/telescope-live-grep-args.nvim',
         -- This will not install any breaking changes.
@@ -141,7 +141,7 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       require('telescope').load_extension 'undo'
-      -- require('telescope').load_extension 'luasnip'
+      require('telescope').load_extension 'luasnip'
       require('telescope').load_extension 'live_grep_args'
       require('telescope').load_extension 'recent_files'
 
@@ -149,7 +149,7 @@ return {
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]iles' })
-      -- vim.keymap.set('n', '<leader>fs', '<cmd>Telescope luasnip<CR>', { desc = '[S]nippets' })
+      vim.keymap.set('n', '<leader>fs', '<cmd>Telescope luasnip<CR>', { desc = '[S]nippets' })
       vim.keymap.set('n', '<leader>fw', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>fW', function()
         require('telescope.builtin').live_grep {

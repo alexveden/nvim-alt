@@ -221,7 +221,7 @@ return {
       },
       sources = {
         { name = 'path' },
-        { name = 'luasnip',  keyword_pattern = [[\k\+]]},
+        { name = 'luasnip',  keyword_pattern = [[\k\+]], keyword_length=3},
       },
     })
   end,
