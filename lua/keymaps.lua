@@ -24,11 +24,6 @@ vim.keymap.set('n', '<C-h>', function()
   print('Harpooned: ' .. vim.fn.expand '%')
   harpoon:list():add()
 end)
--- русская р = h
-vim.keymap.set('n', '<C-р>', function()
-  print('Harpooned: ' .. vim.fn.expand '%')
-  harpoon:list():add()
-end)
 
 vim.keymap.set('n', '<C-space>', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())

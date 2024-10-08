@@ -2,9 +2,9 @@ return {
   'hrsh7th/nvim-cmp',
   -- enabled = false,
   dependencies = {
-    -- 'L3MON4D3/LuaSnip',
+    'L3MON4D3/LuaSnip',
     'onsails/lspkind.nvim',
-    -- 'saadparwaiz1/cmp_luasnip',
+    'saadparwaiz1/cmp_luasnip',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lsp',
@@ -205,8 +205,24 @@ return {
         } },
         { name = 'path' },
       },
+
     }
 
     cmp.setup(opts)
+
+    cmp.setup.filetype({ 'markdown', 'help' }, {
+      matching = {
+        disallow_partial_fuzzy_matching=true,
+        disallow_symbol_nonprefix_matching=false,
+        disallow_partial_matching=true,
+        disallow_fuzzy_matching=true,
+        disallow_fullfuzzy_matching=false,
+        disallow_prefix_unmatching=false,
+      },
+      sources = {
+        { name = 'path' },
+        { name = 'luasnip',  keyword_pattern = [[\k\+]]},
+      },
+    })
   end,
 }

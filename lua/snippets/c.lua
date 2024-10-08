@@ -26,15 +26,15 @@ local h = snutils.hint
 local is_unit_test_buf = function() return snutils.buffnmatch "test_.+%.c$" end
 
 return {
-  s({ trig = "..", snippetType="autosnippet" }, fmt("->")),
-  s(
-    "fmt1",
-    fmt("To {title} {} {}.", {
-      i(2, "Name"),
-      i(3, "Surname"),
-      title = c(1, { t "Mr.", t "Ms." }),
-    })
-  ),
+  -- s({ trig = "..", snippetType="autosnippet" }, fmt("->")),
+  -- s(
+  --   "fmt1",
+  --   fmt("To {title} {} {}.", {
+  --     i(2, "Name"),
+  --     i(3, "Surname"),
+  --     title = c(1, { t "Mr.", t "Ms." }),
+  --   })
+  -- ),
   --
   -- s(
   --   {trig="as", desc="Inserts assertion (atassert/uassert)"},

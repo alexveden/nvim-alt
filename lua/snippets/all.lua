@@ -22,5 +22,5 @@ local conds_expand = require("luasnip.extras.conditions.expand")
 
 
 return {
-	s("trig", t("loaded 22232!!"))
+	s("trig", t("loaded fooo!!"))
 }
