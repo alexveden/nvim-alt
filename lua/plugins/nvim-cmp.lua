@@ -1,5 +1,6 @@
 return {
   'hrsh7th/nvim-cmp',
+  -- enabled = false,
   dependencies = {
     -- 'L3MON4D3/LuaSnip',
     'onsails/lspkind.nvim',
@@ -9,13 +10,19 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
   event = 'InsertEnter',
-  opts = function()
+  config = function()
     local cmp = require 'cmp'
     -- local luasnip = require 'luasnip'
     local lspkind = require 'lspkind'
 
     -- Add autopairs event
     cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done { tex = false })
+
+    cmp.event:on('menu_closed', function()
+      local langmapper = require 'langmapper'
+      langmapper._hack_keymap()
+      langmapper.hack_get_keymap()
+    end)
 
     local border_opts = {
       border = 'rounded',
@@ -89,16 +96,19 @@ return {
       return nil
     end
 
-    return {
+    local opts = {
       enabled = function()
         if vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt' then
           return false
         end
+
+        local langmapper = require 'langmapper'
+        langmapper.put_back_keymap()
+
         return true
       end,
       preselect = cmp.PreselectMode.None,
       formatting = {
-        -- fields = { 'kind', 'abbr', 'menu' }, // menu may contain full signature
         fields = { 'kind', 'abbr', 'menu' },
         format = lspkind.cmp_format(lspkind_format),
       },
@@ -149,25 +159,6 @@ return {
             fallback()
           end
         end, { 'i', 'n' }),
-        --
-        -- ['<Tab>'] = cmp.mapping(function(fallback)
-        --   if cmp.visible() then
-        --     local entry = cmp.get_selected_entry()
-        --     if not entry then
-        --       cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-        --     end
-        --     cmp.confirm()
-        --   else
-        --     fallback()
-        --   end
-        -- end, { 'i' }),
-        --
-        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-        --   if not cmp.visible() then
-        --     fallback()
-        --   end
-        -- end, { 'i' }),
-        --
         ['<Down>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -184,7 +175,6 @@ return {
           end
         end, { 'i', 'c' }),
       },
-
       sorting = {
         priority_weight = 1.0,
         comparators = {
@@ -216,5 +206,7 @@ return {
         { name = 'path' },
       },
     }
+
+    cmp.setup(opts)
   end,
 }
