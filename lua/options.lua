@@ -68,6 +68,7 @@ vim.opt.wrap = false
 vim.opt.spell = true
 vim.opt.spelllang = 'en,ru'
 vim.opt.spelloptions = 'camel,noplainbuffer'
+vim.opt.spellcapcheck = ''
 
 -- tabs / indents
 vim.opt.tabstop = 4 -- Tab ident width
