@@ -112,8 +112,8 @@ vim.keymap.set({ 'n' }, '<leader>bu', '<cmd>Telescope undo<cr>', { desc = '[B]uf
 vim.keymap.set({ 'n' }, '<leader>bl', '<cmd>Telescope buffers<cr>', { desc = '[B]uffer [l]ist' })
 
 -- Just in case keys
-vim.keymap.set({ 'n' }, '<leader>jr', ':.,$s/<C-R><C-W>/<C-R><C-W>/gc<Left><Left><Left>', { desc = 'Replace word under cursor' })
-vim.keymap.set({ 'v' }, '<leader>jr', 'y:.,$s/<C-R>"/<C-R>"/gc<Left><Left><Left>', { desc = 'Replace selection' })
+vim.keymap.set({ 'n' }, '<leader>jr', ':.,$s@\\V<C-R><C-W>@<C-R><C-W>@gc<Left><Left><Left>', { desc = 'Replace word under cursor' })
+vim.keymap.set({ 'v' }, '<leader>jr', 'y:.,$s@\\V<C-R>"@<C-R>"@gc<Left><Left><Left>', { desc = 'Replace selection' })
 
 -- Interface quick toggle
 vim.keymap.set({ 'n' }, '<leader>tw', function()
