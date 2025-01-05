@@ -2,8 +2,8 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 return {
-  -- 'nvim-neo-tree/neo-tree.nvim',
-  dir = '/home/ubertrader/code/neo-tree.nvim/',
+  'nvim-neo-tree/neo-tree.nvim',
+  -- dir = '/home/ubertrader/code/neo-tree.nvim/',
   version = '*',
   dependencies = {
     'nvim-lua/plenary.nvim',

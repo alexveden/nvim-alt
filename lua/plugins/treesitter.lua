@@ -42,6 +42,7 @@ return {
             [']f'] = { query = '@function.outer', desc = 'Next function start' },
             ["]J"] = { query = "@code_cell.comment", desc = "Next code cell start" },
             ["]j"] = { query = "@cell.comment", desc = "Next cell start" },
+            [']t'] = { query = '@markdown.task', desc = 'Next markdown task' },
           },
           goto_next_end = {
           },
@@ -49,6 +50,7 @@ return {
             ['[f'] = { query = '@function.outer', desc = 'Previous function start' },
             ["[J"] = { query = "@code_cell.comment", desc = "Prev code cell start" },
             ["[j"] = { query = "@cell.comment", desc = "Prev cell start" },
+            ['[t'] = { query = '@markdown.task', desc = 'Prev markdown task' },
           },
           goto_previous_end = {
           },
