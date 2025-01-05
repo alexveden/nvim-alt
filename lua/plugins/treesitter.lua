@@ -40,23 +40,37 @@ return {
           goto_next_start = {
             [']k'] = { query = '@block.outer', desc = 'Next block start' },
             [']f'] = { query = '@function.outer', desc = 'Next function start' },
-            ["]J"] = { query = "@code_cell.comment", desc = "Next code cell start" },
-            ["]j"] = { query = "@cell.comment", desc = "Next cell start" },
+            [']J'] = { query = '@code_cell.comment', desc = 'Next code cell start' },
+            [']j'] = { query = '@cell.comment', desc = 'Next cell start' },
           },
-          goto_next_end = {
-          },
+          goto_next_end = {},
           goto_previous_start = {
             ['[f'] = { query = '@function.outer', desc = 'Previous function start' },
-            ["[J"] = { query = "@code_cell.comment", desc = "Prev code cell start" },
-            ["[j"] = { query = "@cell.comment", desc = "Prev cell start" },
+            ['[J'] = { query = '@code_cell.comment', desc = 'Prev code cell start' },
+            ['[j'] = { query = '@cell.comment', desc = 'Prev cell start' },
           },
-          goto_previous_end = {
-          },
+          goto_previous_end = {},
         },
       },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+      vim.filetype.add {
+        extension = {
+          c3 = 'c3',
+          c3i = 'c3',
+          c3t = 'c3',
+        },
+      }
+
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.c3 = {
+        install_info = {
+          url = 'https://github.com/c3lang/tree-sitter-c3',
+          files = { 'src/parser.c', 'src/scanner.c' },
+          branch = 'main',
+        },
+      }
 
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
