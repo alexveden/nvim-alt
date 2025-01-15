@@ -291,32 +291,32 @@ return {
 
 
       -- C3 LSP
-      local lspconfig = require 'lspconfig'
-      local configs = require 'lspconfig.configs'
-      if not configs.c3_lsp then
-        configs.c3_lsp = {
-          default_config = {
-            cmd = {
-              '/home/ubertrader/code/c3-lsp/server/bin/c3lsp',
-              '-debug',
-              '-diagnostics-delay=100',
-              '-stdlib-path=/home/ubertrader/code/c3c/build/lib/std',
-              '-log-path=/home/ubertrader/code/c3-lsp/server/bin/c3lsp.log',
-              '-lang-version=0.6.5'
-            },
-            filetypes = { 'c3', 'c3i' },
-            root_dir = function(fname)
-              local cwd = vim.fn.getcwd()
-                
-              local proj_root = util.root_pattern { 'project.json', 'manifest.json', '.git' }(fname)
-              return proj_root
-            end,
-            settings = {},
-            name = 'c3_lsp',
-          },
-        }
-      end
-      lspconfig.c3_lsp.setup{}
+      -- local lspconfig = require 'lspconfig'
+      -- local configs = require 'lspconfig.configs'
+      -- if not configs.c3_lsp then
+      --   configs.c3_lsp = {
+      --     default_config = {
+      --       cmd = {
+      --         '/home/ubertrader/code/c3-lsp/server/bin/c3lsp',
+      --         '-debug',
+      --         '-diagnostics-delay=100',
+      --         '-stdlib-path=/home/ubertrader/code/c3c/build/lib/std',
+      --         '-log-path=/home/ubertrader/code/c3-lsp/server/bin/c3lsp.log',
+      --         '-lang-version=0.6.5'
+      --       },
+      --       filetypes = { 'c3', 'c3i' },
+      --       root_dir = function(fname)
+      --         local cwd = vim.fn.getcwd()
+      --           
+      --         local proj_root = util.root_pattern { 'project.json', 'manifest.json', '.git' }(fname)
+      --         return proj_root
+      --       end,
+      --       settings = {},
+      --       name = 'c3_lsp',
+      --     },
+      --   }
+      -- end
+      -- lspconfig.c3_lsp.setup{}
 
       for _, sign in ipairs(signs) do
         vim.fn.sign_define(sign.name, sign)

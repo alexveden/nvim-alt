@@ -14,8 +14,17 @@
  (struct_declaration) @type.declaration)
 
 (source_file
- (struct_declaration) @type.declaration)
+ (distinct_declaration) @type.declaration)
+
+(source_file
+ (bitstruct_declaration) @type.declaration)
 
 (source_file
  (enum_declaration) @type.declaration)
+
+(source_file
+ (interface_declaration) @type.declaration)
+
+(source_file
+ (fault_declaration) @type.declaration)
 

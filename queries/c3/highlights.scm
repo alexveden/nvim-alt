@@ -320,4 +320,15 @@
   (block_comment)
 ] @comment @spell
 
-(doc_comment) @comment.documentation @spell
+;; Doc comments and contract highlighting
+(doc_comment_text) @comment.documentation @spell
+(doc_comment_contract_text) @comment.documentation @spell
+
+;; Other @idents just as comments
+(doc_comment (doc_comment_contract (at_ident) @comment.documentation))
+
+;; Most enforsed contracts same color as assert()
+(doc_comment (doc_comment_contract (at_ident) @keyword (#any-of? @keyword
+        "@deprecated"
+        "@require"
+        "@ensure")))
