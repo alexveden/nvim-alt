@@ -46,6 +46,9 @@ return {
           -- function
           ["]f"] = {previous = "[f", next = "]f"},
           ["[f"] = {previous = "[f", next = "]f"},
+          -- type
+          ["]t"] = {previous = "[t", next = "]t"},
+          ["[t"] = {previous = "[t", next = "]t"},
           -- git hunk
           ["]g"] = {previous = "[g", next = "]g"},
           ["[g"] = {previous = "[g", next = "]g"},

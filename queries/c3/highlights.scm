@@ -38,6 +38,11 @@
   "var"
 ] @keyword
 
+(
+ (doc_comment_text) @type
+ (#lua-match? @type ".*@param.*")
+ )
+
 [
   "$alignof"
   "$and"
@@ -221,7 +226,7 @@
 (escape_sequence) @string.escape
 
 ;; Builtin (constants)
-((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
+  ((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
 
 ;; Type Property (from `c3c --list-type-properties`)
 (type_access_expr (access_ident [(ident) "typeid"] @variable.builtin
