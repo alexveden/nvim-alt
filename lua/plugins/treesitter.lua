@@ -40,18 +40,20 @@ return {
           goto_next_start = {
             [']k'] = { query = '@block.outer', desc = 'Next block start' },
             [']f'] = { query = '@function.outer', desc = 'Next function start' },
-            [']J'] = { query = '@code_cell.comment', desc = 'Next code cell start' },
-            [']j'] = { query = '@cell.comment', desc = 'Next cell start' },
-            [']t'] = { query = '@type.declaration', desc = 'Next type decl' },
+            ["]J"] = { query = "@code_cell.comment", desc = "Next code cell start" },
+            ["]j"] = { query = "@cell.comment", desc = "Next cell start" },
+            [']t'] = { query = '@markdown.task', desc = 'Next markdown task' },
           },
-          goto_next_end = {},
+          goto_next_end = {
+          },
           goto_previous_start = {
             ['[f'] = { query = '@function.outer', desc = 'Previous function start' },
-            ['[J'] = { query = '@code_cell.comment', desc = 'Prev code cell start' },
-            ['[j'] = { query = '@cell.comment', desc = 'Prev cell start' },
-            ['[t'] = { query = '@type.declaration', desc = 'Prev type decl' },
+            ["[J"] = { query = "@code_cell.comment", desc = "Prev code cell start" },
+            ["[j"] = { query = "@cell.comment", desc = "Prev cell start" },
+            ['[t'] = { query = '@markdown.task', desc = 'Prev markdown task' },
           },
-          goto_previous_end = {},
+          goto_previous_end = {
+          },
         },
       },
     },

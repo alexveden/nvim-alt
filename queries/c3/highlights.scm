@@ -221,7 +221,7 @@
 (escape_sequence) @string.escape
 
 ;; Builtin (constants)
-((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
+  ((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
 
 ;; Type Property (from `c3c --list-type-properties`)
 (type_access_expr (access_ident [(ident) "typeid"] @variable.builtin
@@ -321,8 +321,7 @@
 ] @comment @spell
 
 ;; Doc comments and contract highlighting
-(doc_comment_text) @comment.documentation @spell
-(doc_comment_contract_text) @comment.documentation @spell
+(doc_comment) @comment.documentation @spell
 
 ;; Other @idents just as comments
 (doc_comment (doc_comment_contract (at_ident) @comment.documentation))
@@ -332,3 +331,12 @@
         "@deprecated"
         "@require"
         "@ensure")))
+
+(type_ident) @enum
+;(field_expr field: (access_ident (ident) @variable))
+
+((ident) @enum
+      (#any-of? @enum
+                "self"
+                "me"
+                "this"))
