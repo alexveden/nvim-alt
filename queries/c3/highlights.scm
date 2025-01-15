@@ -326,3 +326,12 @@
 ] @comment @spell
 
 (doc_comment) @comment.documentation @spell
+
+(type_ident) @enum
+;(field_expr field: (access_ident (ident) @variable))
+
+((ident) @enum
+      (#any-of? @enum
+                "self"
+                "me"
+                "this"))
