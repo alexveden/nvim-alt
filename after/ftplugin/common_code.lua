@@ -33,10 +33,21 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', '<cmd>norm[f<cr>', { desc = 'J
 vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', '<cmd>norm]f<cr>', { desc = 'Jump next function below' })
 
 -- Folding
+
+function ToggleFoldRecursive()
+    if vim.fn.foldclosed('.') == -1 then
+        -- If the fold is open, close it recursively
+        vim.cmd('normal! zC')
+    else
+        -- If the fold is closed, open it recursively
+        vim.cmd('normal! zO')
+    end
+end
 vim.api.nvim_buf_set_keymap(0, 'n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'foldlevel=0' })
 vim.api.nvim_buf_set_keymap(0, 'n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'foldlevel=1' })
 vim.api.nvim_buf_set_keymap(0, 'n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'foldlevel=2' })
 vim.api.nvim_buf_set_keymap(0, 'n', 'z3', '<cmd>set foldlevel=3<CR>', { desc = 'foldlevel=3' })
+vim.api.nvim_buf_set_keymap(0, 'n', 'za', ':lua ToggleFoldRecursive()<CR>', { desc = 'Toggle Fold recursively' })
 
 -- Code comments
 vim.api.nvim_buf_set_keymap(0, 'n', '<C-_>', "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", { desc = 'Comment line' })
