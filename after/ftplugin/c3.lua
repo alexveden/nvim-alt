@@ -9,5 +9,14 @@ vim.opt.colorcolumn = '100'
 
 vim.bo.tabstop = 4
 
-vim.api.nvim_buf_set_keymap(0, 'n', '<leader>fl', ":lua require('c3fzf').c3fzf()<CR>", { desc = '[L]anguage symbols for C3' })
+vim.api.nvim_buf_set_keymap(0, 'n', '<leader>lh', ":lua require('c3fzf').c3fzf()<CR>", { desc = '[H]elp for C3' })
 
+vim.api.nvim_buf_set_keymap(0, "n", "<leader>lf", "", {
+    callback = function ()
+        vim.cmd('silent !/home/ubertrader/code/c3tools/build/c3fmt %')
+        vim.cmd("checktime")
+    end,
+    noremap = true,  -- Disable recursive mapping
+    silent = true,   -- Suppress command-line output
+    desc="Format C3 code with c3fmt"
+})

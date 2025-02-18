@@ -74,11 +74,11 @@ return {
             map('<leader>la', vim.lsp.buf.code_action, 'code [a]ction', { 'n', 'v' })
           end
 
-          -- if client.supports_method 'textDocument/formatting' then
-          map('<leader>lf', function()
-            vim.lsp.buf.format { timeout_ms = 5000 }
-          end, 'code [f]ormat', { 'n', 'v' })
-          -- end
+          if client.supports_method 'textDocument/formatting' then
+            map('<leader>lf', function()
+              vim.lsp.buf.format { timeout_ms = 5000 }
+            end, 'code [f]ormat', { 'n', 'v' })
+          end
 
           if client.supports_method 'textDocument/references' then
             map('gr', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
@@ -290,7 +290,7 @@ return {
       }
 
 
-      -- C3 LSP
+      -- -- C3 LSP
       -- local lspconfig = require 'lspconfig'
       -- local configs = require 'lspconfig.configs'
       -- if not configs.c3_lsp then

@@ -50,7 +50,8 @@ M.c3fzf = function(opts)
 				end
 
 				local cmd = vim.tbl_flatten({
-					"/home/ubertrader/code/c3test/build/c3fzf",
+					"/home/ubertrader/code/c3tools/build/c3fzf",
+					"--stdlib=/home/ubertrader/code/c3c/lib/std",
 					"--preview",
 					words,
 				})
@@ -115,7 +116,8 @@ M.c3fzf = function(opts)
 		-- print(vim.inspect(words))
 
 		local cmd = vim.tbl_flatten({
-			"/home/ubertrader/code/c3test/build/c3fzf",
+			"/home/ubertrader/code/c3tools/build/c3fzf",
+			"--stdlib=/home/ubertrader/code/c3c/lib/std",
 			words,
 		})
 		return cmd
