@@ -15,6 +15,13 @@ vim.opt.showmode = false
 
 -- Virtual edit (allowing goto past last char)
 vim.opt.virtualedit = 'onemore'
+-- Fix occasional reset of virtualedit, but some shitty plugin
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = '*',
+    callback = function()
+        vim.opt.virtualedit = 'onemore'
+    end,
+})
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
