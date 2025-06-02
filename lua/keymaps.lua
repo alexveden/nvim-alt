@@ -26,8 +26,13 @@ vim.keymap.set('n', '<C-h>', function()
 end)
 
 vim.keymap.set('n', '<C-space>', function()
+--vim.keymap.set('n', '<Leader><Leader>', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
+vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-;>", function() harpoon:list():select(3) end)
 
 -- Split/TMUX navigation
 vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up', silent = true })
@@ -65,9 +70,6 @@ vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 --vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '<Nop>')
 -------------------------------------------------------------------------------
 --
 -- Text/Code editing actions keys
@@ -101,7 +103,9 @@ vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
 -- Leader main menu
 vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose current buffer/window' })
-vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = '[o]pen Neo Tree' })
+-- vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = '[o]pen Neo Tree' })
+-- vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[o]pen File Explorer' })
+vim.keymap.set('n', '-', '<cmd>Oil --float<cr>', { desc = '[o]pen File Explorer' })
 
 -- Buffer related
 vim.keymap.set({ 'n' }, '<leader>b|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
