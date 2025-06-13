@@ -239,3 +239,12 @@ os
 cmd
 stdout
 vcpkg
+Permutate
+Structs
+Enums
+structs
+tracebacks
+ABI
+strcmp
+Exc
+RAII
