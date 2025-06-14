@@ -8,7 +8,7 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -61,7 +61,7 @@ return {
           end
 
           if client.supports_method 'textDocument/signatureHelp' then
-            map('<c-k>', vim.lsp.buf.signature_help, 'Signature [H]elp', {'i'})
+            map('<c-k>', vim.lsp.buf.signature_help, 'Signature [H]elp', { 'i' })
             map('K', vim.lsp.buf.signature_help, 'Signature [H]elp')
           end
 
@@ -79,12 +79,10 @@ return {
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[S]ymbols')
-          -- map('<C-d>', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
-          map('<C-d>', "<cmd>:lua error('use leader + ls')<cr>", 'Document Symbols')
           --
           -- -- Fuzzy find all the symbols in your current workspace.
           -- --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace symbols')
+          map('<leader>lp', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Project symbols')
           --
           -- TODO: implement language specific initialization
           --
@@ -129,7 +127,7 @@ return {
       })
 
       -- lsp.setup_diagnostics(signs)
-            vim.diagnostic.config {
+      vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
         underline = { severity = vim.diagnostic.severity.ERROR },
@@ -271,20 +269,22 @@ return {
             },
           },
           root_dir = function(fname)
-            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or util.path.dirname(fname)
+            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or
+                util.path.dirname(fname)
           end,
         },
       }
 
-
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
+      --
+      -- To check the current status of installed tools and/or manually install
+      -- other tools, you can run
       --    :Mason
       --
-      --  You can press `g?` for help in this menu.
-      require('mason').setup()
-
+      -- You can press `g?` for help in this menu.
+      --
+      -- `mason` had to be setup earlier: to configure its options see the
+      -- `dependencies` table for `nvim-lspconfig` above.
+      --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -293,19 +293,16 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      local lsp_flags = {
-        allow_incremental_sync = true,
-        debounce_text_changes = 150,
-      }
       require('mason-lspconfig').setup {
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            server.flags = vim.tbl_deep_extend('force', {}, lsp_flags, server.lsp_flags or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
