@@ -1,33 +1,4 @@
 return {
-  {
-
-    -- for lsp features in code cells / embedded code
-    'jmbuhr/otter.nvim',
-    dev = false,
-    dependencies = {
-      {
-        'neovim/nvim-lspconfig',
-        'nvim-treesitter/nvim-treesitter',
-        'hrsh7th/nvim-cmp',
-      },
-    },
-    opts = {
-      lsp = {
-        hover = {
-          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-        },
-        -- `:h events` that cause the diagnostics to update. Set to:
-        -- { "BufWritePost", "InsertLeave", "TextChanged" } for less performant
-        -- but more instant diagnostic updates
-        diagnostic_update_events = { 'BufWritePost', 'InsertLeave' },
-      },
-      buffers = {
-        set_filetype = true,
-        write_to_disk = false,
-      },
-      handle_leading_whitespace = true,
-    },
-  },
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {

@@ -18,21 +18,6 @@ vim.api.nvim_set_keymap('x', 'y', 'ygv<Esc>', { noremap = true, silent = true })
 --
 -------------------------------------------------------------------------------
 
--- Harpoon bindings
-local harpoon = require 'harpoon'
-vim.keymap.set('n', '<C-h>', function()
-  print('Harpooned: ' .. vim.fn.expand '%')
-  harpoon:list():add()
-end)
-
-vim.keymap.set('n', '<C-space>', function()
---vim.keymap.set('n', '<Leader><Leader>', function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-;>", function() harpoon:list():select(3) end)
 
 -- Split/TMUX navigation
 vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up', silent = true })
