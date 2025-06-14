@@ -128,12 +128,40 @@ return {
         end,
       })
 
+      -- lsp.setup_diagnostics(signs)
+            vim.diagnostic.config {
+        severity_sort = true,
+        float = { border = 'rounded', source = 'if_many' },
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '󰋼',
+            [vim.diagnostic.severity.HINT] = '󰌵',
+          },
+        } or {},
+        virtual_text = {
+          source = 'if_many',
+          spacing = 2,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
+      }
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      --capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
       capabilities.textDocument.completion.completionItem.snippetSupport = false
 
       -- Enable the following language servers
@@ -248,51 +276,6 @@ return {
         },
       }
 
-      local signs = {
-        { name = 'DiagnosticSignError', text = '', texthl = 'DiagnosticSignError' },
-        { name = 'DiagnosticSignWarn', text = '', texthl = 'DiagnosticSignWarn' },
-        { name = 'DiagnosticSignHint', text = '󰌵', texthl = 'DiagnosticSignHint' },
-        { name = 'DiagnosticSignInfo', text = '󰋼', texthl = 'DiagnosticSignInfo' },
-        -- { name = 'DapStopped',             text = get_icon 'DapStopped',             texthl = 'DiagnosticWarn' },
-        -- { name = 'DapBreakpoint',          text = get_icon 'DapBreakpoint',          texthl = 'DiagnosticInfo' },
-        -- { name = 'DapBreakpointRejected',  text = get_icon 'DapBreakpointRejected',  texthl = 'DiagnosticError' },
-        -- { name = 'DapBreakpointCondition', text = get_icon 'DapBreakpointCondition', texthl = 'DiagnosticInfo' },
-        -- { name = 'DapLogPoint',            text = get_icon 'DapLogPoint',            texthl = 'DiagnosticInfo' },
-      }
-
-
-      -- -- C3 LSP
-      -- local lspconfig = require 'lspconfig'
-      -- local configs = require 'lspconfig.configs'
-      -- if not configs.c3_lsp then
-      --   configs.c3_lsp = {
-      --     default_config = {
-      --       cmd = {
-      --         '/home/ubertrader/code/c3-lsp/server/bin/c3lsp',
-      --         '-debug',
-      --         '-diagnostics-delay=100',
-      --         '-stdlib-path=/home/ubertrader/code/c3c/build/lib/std',
-      --         '-log-path=/home/ubertrader/code/c3-lsp/server/bin/c3lsp.log',
-      --         '-lang-version=0.6.5'
-      --       },
-      --       filetypes = { 'c3', 'c3i' },
-      --       root_dir = function(fname)
-      --         local cwd = vim.fn.getcwd()
-      --           
-      --         local proj_root = util.root_pattern { 'project.json', 'manifest.json', '.git' }(fname)
-      --         return proj_root
-      --       end,
-      --       settings = {},
-      --       name = 'c3_lsp',
-      --     },
-      --   }
-      -- end
-      -- lspconfig.c3_lsp.setup{}
-
-      for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, sign)
-      end
-      -- lsp.setup_diagnostics(signs)
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
