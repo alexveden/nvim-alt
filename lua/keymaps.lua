@@ -28,12 +28,15 @@ vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split 
 -- Text navigation
 vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char', silent = true })
 vim.keymap.set({ 'n', 'v' }, '<End>', 'g_l', { desc = 'Jump to last non-blank char', silent = true })
-vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up', silent = true })
-vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down', silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<C-u>', '10k', { desc = 'Jump 10 up', silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<C-d>', '10j', { desc = 'Jump 10 down', silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up', silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down', silent = true })
+
 vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank char', silent = true })
 vim.keymap.set({ 'i' }, '<End>', '<C-o>g_<C-o>l', { desc = 'Jump to last non-blank char', silent = true })
-vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent = true })
-vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent = true })
+-- vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent = true })
+-- vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent = true })
 -- Control-Backspace
 vim.keymap.set({ 'i' }, '<C-H>', '<C-W>', { desc = 'Delete whole ' })
 vim.keymap.set('n', 'G', 'Gzz', { desc = 'End and center screen' })
@@ -51,10 +54,12 @@ vim.keymap.set({ 'n', 'v' }, '<S-h>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-j>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 --vim.keymap.set({ 'n', 'v' }, '<C-h>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v', 'i' }, '<PageUp>', '<Nop>')
+-- vim.keymap.set({ 'n', 'v', 'i' }, '<PageDown>', '<Nop>')
 -------------------------------------------------------------------------------
 --
 -- Text/Code editing actions keys
@@ -78,18 +83,26 @@ vim.keymap.set('n', '<C-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line Down', s
 vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection Up', silent = true })
 vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down', silent = true })
 
+-- Using Ctrl+/ (similar to many IDEs)
+vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
+vim.keymap.set('x', '<C-_>', 'gc', { remap = true })
+
 -------------------------------------------------------------------------------
 --
 -- Core Interface keys
 --
 -------------------------------------------------------------------------------
-vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
+-- vim.keymap.set({ 'n', 'v' }, '<leader>s', '<Esc>:w!<cr>', { desc = 'Save file' })
+vim.keymap.set({ 'n', 'v' }, '<leader>w', '<Esc>:w!<cr>', { desc = 'Write file' })
+vim.keymap.set({ 'n', 'v' }, '<leader>s', "<Esc>:lua error('use :w')<cr>", { desc = 'Save file (use <leader>w)' })
+
 vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 
 -- Leader main menu
-vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose current buffer/window' })
--- vim.keymap.set('n', '<leader>o', '<cmd>Neotree toggle position=float reveal=true<cr>', { desc = '[o]pen Neo Tree' })
--- vim.keymap.set('n', '<leader>o', '<cmd>Oil --float<cr>', { desc = '[o]pen File Explorer' })
+-- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose current buffer/window' })
+vim.keymap.set({ 'n' }, '<leader>q', '<cmd>bd<cr>', { desc = '[Q]uit current buffer/window' })
+vim.keymap.set({ 'n', }, '<leader>c', "<Esc>:lua error('use <C-W>q')<cr>", { desc = '[q]uit window <leader>q' })
+
 vim.keymap.set('n', '-', '<cmd>Oil --float<cr>', { desc = '[o]pen File Explorer' })
 
 -- Buffer related
@@ -99,6 +112,7 @@ vim.keymap.set({ 'n' }, '<leader>bo', '<cmd>%bd|e#|bd#<cr><cr>', { desc = 'Buffe
 vim.keymap.set({ 'n' }, '<leader>bn', '<cmd>enew<cr>', { desc = '[B]uffer [n]ew' })
 vim.keymap.set({ 'n' }, '<leader>bu', '<cmd>Telescope undo<cr>', { desc = '[B]uffer [u]ndo tree' })
 vim.keymap.set({ 'n' }, '<leader>bl', '<cmd>Telescope buffers<cr>', { desc = '[B]uffer [l]ist' })
+vim.keymap.set({ 'n' }, '<leader>bd', '<cmd>bd<cr>', { desc = '[B]uffer [d]elete / close' })
 
 -- Just in case keys
 vim.keymap.set({ 'n' }, '<leader>jr', ':.,$s@\\V<C-R><C-W>@<C-R><C-W>@gc<Left><Left><Left>', { desc = 'Replace word under cursor' })
@@ -123,6 +137,7 @@ vim.keymap.set({ 'n' }, '<leader>td', function()
 end, { desc = '[T]oggle [d]iagnostics' })
 
 -- NOTE: Telescope bindings are in plugins/telescope.lua
--- NOTE: Snippet/CMP bindings in plugins/luasnip.lua+nvim_cmp.lua
+-- NOTE: Snippet/CMP bindings in plugins/blink-cmp.lua
 -- NOTE: Git bindings are in plugins/gitsigns.lua
 -- NOTE: Quick fix window in lua/plugins/quickfix.lua
+

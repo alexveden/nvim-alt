@@ -22,7 +22,6 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<leader>jd', ":lua require('neogen').genera
 --     { desc = "Show signature" })
 
 vim.api.nvim_buf_set_keymap(0, 'i', '<C-q>', "<esc>:lua error('Use norm<K> or insert<Ctrl-k> for code help')<cr>", { desc = 'Show signature' })
-
 vim.api.nvim_buf_set_keymap(0, 'n', '<C-q>', ":lua error('Use norm<K> or insert<Ctrl-k> for code help')<cr>", { desc = 'Show signature' })
 
 -- Prevent new line comments insertion
@@ -49,6 +48,3 @@ vim.api.nvim_buf_set_keymap(0, 'n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = '
 vim.api.nvim_buf_set_keymap(0, 'n', 'z3', '<cmd>set foldlevel=3<CR>', { desc = 'foldlevel=3' })
 vim.api.nvim_buf_set_keymap(0, 'n', 'za', ':lua ToggleFoldRecursive()<CR>', { desc = 'Toggle Fold recursively' })
 
--- Code comments
-vim.api.nvim_buf_set_keymap(0, 'n', '<C-_>', "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", { desc = 'Comment line' })
-vim.api.nvim_buf_set_keymap(0, 'v', '<C-_>', "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = 'Comment selection' })
