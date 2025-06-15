@@ -28,8 +28,8 @@ vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split 
 -- Text navigation
 vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char', silent = true })
 vim.keymap.set({ 'n', 'v' }, '<End>', 'g_l', { desc = 'Jump to last non-blank char', silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-u>', '10k', { desc = 'Jump 10 up', silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-d>', '10j', { desc = 'Jump 10 down', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-u>', '8k', { desc = 'Jump 10 up', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-d>', '8j', { desc = 'Jump 10 down', silent = true })
 -- vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up', silent = true })
 -- vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down', silent = true })
 
