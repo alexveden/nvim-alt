@@ -59,8 +59,8 @@ return {
           ["]j"] = {previous = "[j", next = "]j"},
           ["[j"] = {previous = "[j", next = "]j"},
           -- next fold
-          -- ["z<Up>"] = {previous = "zk", next = "zj"},
-          -- ["z<Down>"] = {previous = "zk", next = "zj"},
+          ["]z"] = {previous = "zk", next = "zj"},
+          ["[z"] = {previous = "zk", next = "zj"},
         },
       }
 
