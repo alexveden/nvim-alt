@@ -5,10 +5,11 @@
 
 -- Make line numbers default
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+-- vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -17,10 +18,10 @@ vim.opt.showmode = false
 vim.opt.virtualedit = 'onemore'
 -- Fix occasional reset of virtualedit, but some shitty plugin
 vim.api.nvim_create_autocmd('BufEnter', {
-    pattern = '*',
-    callback = function()
-        vim.opt.virtualedit = 'onemore'
-    end,
+  pattern = '*',
+  callback = function()
+    vim.opt.virtualedit = 'onemore'
+  end,
 })
 
 -- Sync clipboard between OS and Neovim.
@@ -96,11 +97,11 @@ vim.opt.foldlevelstart = 99
 vim.opt.colorcolumn = '89'
 
 -- rip grep as grep program (with source code grepping)
-vim.opt.grepprg = "rg --vimgrep"
+vim.opt.grepprg = 'rg --vimgrep'
 
 local function escape(str)
   -- You need to escape these characters to work correctly
-  local escape_chars = [[;,."|\]] .. "[]"
+  local escape_chars = [[;,."|\]] .. '[]'
   return vim.fn.escape(str, escape_chars)
 end
 
