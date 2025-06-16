@@ -8,7 +8,7 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -45,11 +45,12 @@ return {
             map('<leader>la', vim.lsp.buf.code_action, 'code [a]ction', { 'n', 'v' })
           end
 
-          if client.supports_method 'textDocument/formatting' then
-            map('<leader>lf', function()
-              vim.lsp.buf.format { timeout_ms = 5000 }
-            end, 'code [f]ormat', { 'n', 'v' })
-          end
+          -- -- if client.supports_method 'textDocument/formatting' then
+          -- NOTE:: see comform plugin
+          --   map('<leader>lf', function()
+          --     vim.lsp.buf.format { timeout_ms = 5000 }
+          --   end, 'code [f]ormat', { 'n', 'v' })
+          -- -- end
 
           if client.supports_method 'textDocument/references' then
             map('gr', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
@@ -269,8 +270,7 @@ return {
             },
           },
           root_dir = function(fname)
-            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or
-                util.path.dirname(fname)
+            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or util.path.dirname(fname)
           end,
         },
       }
