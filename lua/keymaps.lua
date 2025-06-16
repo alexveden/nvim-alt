@@ -18,7 +18,6 @@ vim.api.nvim_set_keymap('x', 'y', 'ygv<Esc>', { noremap = true, silent = true })
 --
 -------------------------------------------------------------------------------
 
-
 -- Split/TMUX navigation
 vim.keymap.set('n', '<S-Up>', ':<C-U>TmuxNavigateUp<cr>', { desc = 'Split move up', silent = true })
 vim.keymap.set('n', '<S-Down>', ':<C-U>TmuxNavigateDown<cr>', { desc = 'Split move down', silent = true })
@@ -28,15 +27,16 @@ vim.keymap.set('n', '<S-Right>', ':<C-U>TmuxNavigateRight<cr>', { desc = 'Split 
 -- Text navigation
 vim.keymap.set({ 'n', 'v' }, '<Home>', '^', { desc = 'Jump to first non-blank char', silent = true })
 vim.keymap.set({ 'n', 'v' }, '<End>', 'g_l', { desc = 'Jump to last non-blank char', silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-u>', '8k', { desc = 'Jump 10 up', silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-d>', '8j', { desc = 'Jump 10 down', silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<PageUp>', '10k', { desc = 'Jump 10 up', silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<PageDown>', '10j', { desc = 'Jump 10 down', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz', { desc = 'Jump half-page up', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz', { desc = 'Jump half-page down', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<PageUp>', '8k', { desc = 'Jump 10 up', silent = true })
+vim.keymap.set({ 'n', 'v' }, '<PageDown>', '8j', { desc = 'Jump 10 down', silent = true })
 
 vim.keymap.set({ 'i' }, '<Home>', '<C-o>^', { desc = 'Jump to first non-blank char', silent = true })
 vim.keymap.set({ 'i' }, '<End>', '<C-o>g_<C-o>l', { desc = 'Jump to last non-blank char', silent = true })
--- vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>10k', { desc = 'Jump 10 up', silent = true })
--- vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>10j', { desc = 'Jump 10 down', silent = true })
+vim.keymap.set({ 'i' }, '<PageUp>', '<C-o>8k', { desc = 'Jump 10 up', silent = true })
+vim.keymap.set({ 'i' }, '<PageDown>', '<C-o>8j', { desc = 'Jump 10 down', silent = true })
+
 -- Control-Backspace
 vim.keymap.set({ 'i' }, '<C-H>', '<C-W>', { desc = 'Delete whole ' })
 vim.keymap.set('n', 'G', 'Gzz', { desc = 'End and center screen' })
@@ -48,12 +48,16 @@ vim.keymap.set({ 'n', 'v', 'i' }, '<ScrollWheelDown>', '<C-E>')
 -- Disable some defaults
 vim.keymap.set('n', '<S-Home>', '<Nop>')
 vim.keymap.set('n', '<S-End>', '<Nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<nop>')
-vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-Right>', '<nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-Left>', '<nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-h>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-j>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-k>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<S-l>', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, 'h', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, 'j', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, 'k', '<Nop>')
+vim.keymap.set({ 'n', 'v' }, 'l', '<Nop>')
 -- vim.keymap.set({ 'n', 'v' }, '<C-u>', '<Nop>')
 -- vim.keymap.set({ 'n', 'v' }, '<C-o>', '<Nop>')
 vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
@@ -82,6 +86,8 @@ vim.keymap.set('n', '<C-Up>', '<cmd>m .-2<CR>==', { desc = 'Move line Up', silen
 vim.keymap.set('n', '<C-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line Down', silent = true })
 vim.keymap.set('v', '<C-Up>', ":m '<-2<CR><CR>gv=gv", { desc = 'Move selection Up', silent = true })
 vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down', silent = true })
+vim.keymap.set('n', '<C-Left>', 'zc', { desc = 'Close fold', silent = true })
+vim.keymap.set('n', '<C-Right>', 'zo', { desc = 'Open fold', silent = true })
 
 -- Using Ctrl+/ (similar to many IDEs)
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
@@ -101,9 +107,7 @@ vim.keymap.set({ 'n' }, '<leader>z', '<cmd>ZenMode<cr>', { desc = '[Z]enMode' })
 -- Leader main menu
 -- vim.keymap.set({ 'n' }, '<leader>c', '<cmd>bd<cr>', { desc = '[C]lose current buffer/window' })
 vim.keymap.set({ 'n' }, '<leader>q', '<cmd>bd<cr>', { desc = '[Q]uit current buffer/window' })
-vim.keymap.set({ 'n', }, '<leader>c', "<Esc>:lua error('use <C-W>q')<cr>", { desc = '[q]uit window <leader>q' })
-
-vim.keymap.set('n', '-', '<cmd>Oil --float<cr>', { desc = '[o]pen File Explorer' })
+vim.keymap.set({ 'n' }, '<leader>c', "<Esc>:lua error('use <C-W>q')<cr>", { desc = '[q]uit window <leader>q' })
 
 -- Buffer related
 vim.keymap.set({ 'n' }, '<leader>b|', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
@@ -140,4 +144,3 @@ end, { desc = '[T]oggle [d]iagnostics' })
 -- NOTE: Snippet/CMP bindings in plugins/blink-cmp.lua
 -- NOTE: Git bindings are in plugins/gitsigns.lua
 -- NOTE: Quick fix window in lua/plugins/quickfix.lua
-
