@@ -155,105 +155,19 @@ return {
         },
       }
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      --capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      capabilities.textDocument.completion.completionItem.snippetSupport = false
-
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      --
-      local util = require 'lspconfig.util'
-
-      --- Get quarto LUA paths
-      local function get_quarto_resource_path()
-        local function strsplit(s, delimiter)
-          local result = {}
-          for match in (s .. delimiter):gmatch('(.-)' .. delimiter) do
-            table.insert(result, match)
-          end
-          return result
-        end
-
-        local f = assert(io.popen('quarto --paths', 'r'))
-        local s = assert(f:read '*a')
-        f:close()
-        return strsplit(s, '\n')[2]
-      end
-
-      local lua_library_files = vim.api.nvim_get_runtime_file('', true)
-      local lua_plugin_paths = {}
-      local resource_path = get_quarto_resource_path()
-      if resource_path == nil then
-        vim.notify_once 'quarto not found, lua library files not loaded'
-      else
-        table.insert(lua_library_files, resource_path .. '/lua-types')
-        table.insert(lua_plugin_paths, resource_path .. '/lua-plugin/plugin.lua')
-      end
-
-      local servers = {
-        jedi_language_server = {
-          capabilities = {
-            -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-            workspace = {
-              didChangeWatchedFiles = {
-                dynamicRegistration = false,
-              },
-            },
-          },
-          root_dir = function(fname)
-            return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or util.path.dirname(fname)
-          end,
-        },
-      }
-
-      --
-      -- To check the current status of installed tools and/or manually install
-      -- other tools, you can run
-      --    :Mason
-      --
-      -- You can press `g?` for help in this menu.
-      --
-      -- `mason` had to be setup earlier: to configure its options see the
-      -- `dependencies` table for `nvim-lspconfig` above.
-      --
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
+      local ensure_installed = {
         'stylua', -- Used to format Lua code
-      })
+      }
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
-        handlers = {
-          function(server_name)
-            print('LSP Loading: ' .. server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            -- require('lspconfig')[server_name].setup(server)
-          end,
-        },
       }
 
       --
       -- LUA
-      -- 
+      --
       vim.lsp.config('lua_ls', {
         on_init = function(client)
           if client.workspace_folders then
@@ -265,11 +179,7 @@ return {
 
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
-              -- Tell the language server which version of Lua you're using (most
-              -- likely LuaJIT in the case of Neovim)
               version = 'LuaJIT',
-              -- Tell the language server how to find Lua modules same way as Neovim
-              -- (see `:h lua-module-load`)
               path = {
                 'lua/?.lua',
                 'lua/?/init.lua',
@@ -300,8 +210,7 @@ return {
         },
       })
 
-
-      -- 
+      --
       -- C
       --
       vim.lsp.config['clangd'] = {
