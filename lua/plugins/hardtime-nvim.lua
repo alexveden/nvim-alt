@@ -25,6 +25,8 @@ return {
           -- ["7"] = { "n", "x" },
           -- ["8"] = { "n", "x" },
           -- ["9"] = { "n", "x" },
+          ['<C-u>'] = { 'n' },
+          ['<C-d>'] = { 'n' },
           ['c'] = { 'n' },
           ['C'] = { 'n' },
           ['d'] = { 'n' },
@@ -57,10 +59,10 @@ return {
           ['<PageDown>'] = { 'n' },
         },
         disabled_keys = {
-          ['<Up>'] = {},
-          ['<Down>'] = {},
-          ['<Left>'] = {},
-          ['<Right>'] = {},
+           ['<Up>'] = {},
+           ['<Down>'] = {},
+           ['<Left>'] = {},
+           ['<Right>'] = {},
         },
         disabled_filetypes = { 'qf', 'netrw', 'NvimTree', 'lazy', 'mason', 'neo-tree', 'harpoon', 'help' },
       }
