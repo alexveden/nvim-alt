@@ -202,64 +202,6 @@ return {
       end
 
       local servers = {
-        clangd = {
-          capabilities = {
-            offsetEncoding = 'utf-16',
-            semanticTokensProvider = nil,
-          },
-        },
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-
-        -- Markdown LSP + Quarto server
-        -- also needs:
-        -- $home/.config/marksman/config.toml :
-        -- [core]
-        -- markdown.file_extensions = ["md", "markdown", "qmd"]
-        marksman = {
-          filetypes = { 'markdown', 'quarto' },
-          root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
-        },
-
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              runtime = {
-                version = 'LuaJIT',
-                plugin = lua_plugin_paths,
-              },
-              diagnostics = {
-                globals = { 'vim', 'quarto', 'pandoc', 'io', 'string', 'print', 'require', 'table' },
-                disable = { 'trailing-space' },
-              },
-              workspace = {
-                library = lua_library_files,
-                checkThirdParty = false,
-              },
-              telemetry = {
-                enable = false,
-              },
-              format = {
-                -- see null-ls.stylua
-                enable = false,
-              },
-            },
-          },
-        },
         jedi_language_server = {
           capabilities = {
             -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
@@ -298,14 +240,98 @@ return {
         automatic_installation = false,
         handlers = {
           function(server_name)
+            print('LSP Loading: ' .. server_name)
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            -- require('lspconfig')[server_name].setup(server)
           end,
         },
+      }
+
+      --
+      -- LUA
+      -- 
+      vim.lsp.config('lua_ls', {
+        on_init = function(client)
+          if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then
+              return
+            end
+          end
+
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most
+              -- likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+              -- Tell the language server how to find Lua modules same way as Neovim
+              -- (see `:h lua-module-load`)
+              path = {
+                'lua/?.lua',
+                'lua/?/init.lua',
+              },
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                -- Depending on the usage, you might want to add additional paths
+                -- here.
+                -- '${3rd}/luv/library'
+                -- '${3rd}/busted/library'
+              },
+              -- Or pull in all of 'runtimepath'.
+              -- NOTE: this is a lot slower and will cause issues when working on
+              -- your own configuration.
+              -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+              -- library = {
+              --   vim.api.nvim_get_runtime_file('', true),
+              -- }
+            },
+          })
+        end,
+        settings = {
+          Lua = {},
+        },
+      })
+
+
+      -- 
+      -- C
+      --
+      vim.lsp.config['clangd'] = {
+        cmd = { 'clangd' },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+        root_markers = {
+          '.clangd',
+          '.clang-tidy',
+          '.clang-format',
+          'compile_commands.json',
+          'compile_flags.txt',
+          'configure.ac', -- AutoTools
+          '.git',
+        },
+        capabilities = {
+          textDocument = {
+            completion = {
+              editsNearCursor = true,
+              completionItem = { snippetSupport = false },
+            },
+          },
+          offsetEncoding = { 'utf-8', 'utf-16' },
+        },
+        ---@param client vim.lsp.Client
+        ---@param init_result ClangdInitializeResult
+        on_init = function(client, init_result)
+          if init_result.offsetEncoding then
+            client.offset_encoding = init_result.offsetEncoding
+          end
+        end,
       }
     end,
   },
