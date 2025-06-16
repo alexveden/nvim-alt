@@ -28,7 +28,7 @@ return {
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = { preset = 'default', ["<CR>"] = {"select_and_accept", "fallback"}, ["<C-k>"] = {"show_documentation"}},
 
-    signature = { enabled = true },
+    signature = { enabled = false },
 
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
