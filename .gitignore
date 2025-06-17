@@ -5,3 +5,5 @@ nvim
 __pycache__
 
 lazy-lock.json
+*.add
+*.add.spl
