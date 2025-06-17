@@ -89,16 +89,22 @@ vim.keymap.set('v', '<S-Tab>', '<gv', { desc = 'Indent left ' })
 -- vim.keymap.set('v', '<C-Down>', ":m '>+1<CR><CR>gv=gv", { desc = 'Move selection Down', silent = true })
 
 -- Folding
-vim.keymap.set('n', '<C-Left>', 'zc', { desc = 'Close fold', silent = true })
-vim.keymap.set('n', '<C-Right>', 'zo', { desc = 'Open fold', silent = true })
+vim.keymap.set('n', '<C-Left>', 'zC', { desc = 'Close fold', silent = true })
+vim.keymap.set('n', '<C-Right>', 'zO', { desc = 'Open fold', silent = true })
 vim.keymap.set('n', '<C-Up>', 'zk', { desc = 'Jump to fold up', silent = true })
 vim.keymap.set('n', '<C-Down>', 'zj', { desc = 'Jump to fold down', silent = true })
-vim.keymap.set('n', '<C-PageUp>', '<cmd>set foldlevel=999<CR>', { desc = 'Open all folds', silent = true })
-vim.keymap.set('n', '<C-PageDown>', '<cmd>set foldlevel=0<CR>', { desc = 'Close all folds', silent = true })
+
+vim.keymap.set('n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'Set all folds closed', silent = true })
+vim.keymap.set('n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'Set all folds level=1', silent = true })
+vim.keymap.set('n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'Set all folds level=2', silent = true })
+vim.keymap.set('n', 'z3', '<cmd>set foldlevel=999<CR>', { desc = 'Set all folds open', silent = true })
 
 -- Using Ctrl+/ (similar to many IDEs)
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
 vim.keymap.set('x', '<C-_>', 'gc', { remap = true })
+
+
+vim.keymap.set('n', 'J', 'mz<cmd>:join<CR>`z', { desc = 'Join lines', remap = false })
 
 -------------------------------------------------------------------------------
 --

@@ -6,7 +6,7 @@
 -- -- Special CamelCase or snake_case word moves (useful only in code)
 -- for _, mode in pairs { 'n', 'o', 'x' } do
 --   vim.api.nvim_buf_set_keymap(0, mode, 'w', "<cmd>lua require('spider').motion('w')<CR>", {})
---   vim.api.nvim_buf_set_keymap(0, mode, 'e', "<cmd>lua require('spider').motion('e')<CR>", {})
+
 --   vim.api.nvim_buf_set_keymap(0, mode, 'b', "<cmd>lua require('spider').motion('b')<CR>", {})
 --   vim.api.nvim_buf_set_keymap(0, mode, 'ge', "<cmd>lua require('spider').motion('ge')<CR>", {})
 -- end
@@ -33,20 +33,20 @@ vim.opt.formatoptions:remove { 'c', 'r', 'o' }
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', 'zk', { desc = 'Jump fold up' })
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', 'zj', { desc = 'Jump fold down' })
 
--- Folding
-
-function ToggleFoldRecursive()
-    if vim.fn.foldclosed('.') == -1 then
-        -- If the fold is open, close it recursively
-        vim.cmd('normal! zC')
-    else
-        -- If the fold is closed, open it recursively
-        vim.cmd('normal! zO')
-    end
-end
-vim.api.nvim_buf_set_keymap(0, 'n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'foldlevel=0' })
-vim.api.nvim_buf_set_keymap(0, 'n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'foldlevel=1' })
-vim.api.nvim_buf_set_keymap(0, 'n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'foldlevel=2' })
-vim.api.nvim_buf_set_keymap(0, 'n', 'z3', '<cmd>set foldlevel=3<CR>', { desc = 'foldlevel=3' })
-vim.api.nvim_buf_set_keymap(0, 'n', 'za', ':lua ToggleFoldRecursive()<CR>', { desc = 'Toggle Fold recursively' })
+-- -- Folding
+--
+-- function ToggleFoldRecursive()
+--     if vim.fn.foldclosed('.') == -1 then
+--         -- If the fold is open, close it recursively
+--         vim.cmd('normal! zC')
+--     else
+--         -- If the fold is closed, open it recursively
+--         vim.cmd('normal! zO')
+--     end
+-- end
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'foldlevel=0' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'foldlevel=1' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'foldlevel=2' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'z3', '<cmd>set foldlevel=3<CR>', { desc = 'foldlevel=3' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'za', ':lua ToggleFoldRecursive()<CR>', { desc = 'Toggle Fold recursively' })
 
