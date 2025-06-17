@@ -4,7 +4,7 @@ return {
     "alexveden/pretty-fold.nvim",
     -- dir="/home/ubertrader/cloud/code/pretty-fold.nvim",
     lazy = true,
-    enabled = true,
+    enabled = false,
     event = "BufEnter",
     config = function(_, _)
       -- Saving folds!

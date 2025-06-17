@@ -2,7 +2,7 @@ return {
     -- Disable UFO folding plugin (AstronVim 3.0 default)
     { "kevinhwang91/nvim-ufo", enabled = false },
     {
-        enabled = true,
+        enabled = false,
         dir = '/home/ubertrader/code/nvim-treesitter-pyfold',
         -- 'eddiebergman/nvim-treesitter-pyfold',
         --

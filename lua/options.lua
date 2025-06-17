@@ -92,7 +92,8 @@ vim.opt.guicursor = 'i-ci:ver30-iCursor-blinkwait300-blinkon200-blinkoff150'
 
 -- folding
 vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
 vim.opt.foldlevelstart = 99
 vim.opt.colorcolumn = '89'
 

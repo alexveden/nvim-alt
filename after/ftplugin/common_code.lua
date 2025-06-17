@@ -28,8 +28,10 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<C-q>', ":lua error('Use norm<K> or insert<
 -- print("remove new line comments")
 vim.opt.formatoptions:remove { 'c', 'r', 'o' }
 
-vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', '<cmd>norm[f<cr>', { desc = 'Jump next function above' })
-vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', '<cmd>norm]f<cr>', { desc = 'Jump next function below' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', '<cmd>norm[f<cr>', { desc = 'Jump next function above' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', '<cmd>norm]f<cr>', { desc = 'Jump next function below' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', 'zk', { desc = 'Jump fold up' })
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', 'zj', { desc = 'Jump fold down' })
 
 -- Folding
 
