@@ -7,7 +7,7 @@ vim.cmd "let g:pencil#conceallevel = 0"
 vim.cmd "SoftPencil"
 
 -- Disable spell check for prose by default
-vim.wo.spell = false
+vim.wo.spell = true
 
 
 -- Jump between headers
