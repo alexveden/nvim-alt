@@ -96,6 +96,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevelstart = 99
 vim.opt.colorcolumn = '89'
+vim.opt.foldopen:remove("search") -- NOTE: excludes results from folded from /? search
 
 -- rip grep as grep program (with source code grepping)
 vim.opt.grepprg = 'rg --vimgrep'
