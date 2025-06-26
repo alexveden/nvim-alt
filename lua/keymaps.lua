@@ -71,8 +71,10 @@ vim.keymap.set({ 'n', 'v' }, '<C-y>', '<Nop>')
 -------------------------------------------------------------------------------
 
 -- Code jumps
-vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous', silent = true })
-vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous', silent = true })
+-- vim.keymap.set('n', '<C-Home>', '<tab>', { desc = 'Jump previous', silent = true })
+-- vim.keymap.set('n', '<C-End>', '<C-o>', { desc = 'Jump previous', silent = true })
+vim.keymap.set('n', '<C-Home>', '<C-o>', { desc = 'Jump back', silent = true })
+vim.keymap.set('n', '<C-End>', '<tab>', { desc = 'Jump forward', silent = true })
 
 -- Tab indents
 -- NOTE: Tab binding must be after <Jump-previous
@@ -94,10 +96,29 @@ vim.keymap.set('n', '<C-Right>', 'zO', { desc = 'Open fold', silent = true })
 vim.keymap.set('n', '<C-Up>', 'zk', { desc = 'Jump to fold up', silent = true })
 vim.keymap.set('n', '<C-Down>', 'zj', { desc = 'Jump to fold down', silent = true })
 
+vim.keymap.set('n', '<C-PageDown>', '<C-d>', { desc = 'Half page down', silent = true })
+vim.keymap.set('n', '<C-PageUp>', '<C-u>', { desc = 'Half page up', silent = true })
+-- vim.keymap.set('n', '<C-PageDown>', '<cmd>set foldlevel=0<CR>', { desc = 'Close down all folds', silent = true })
+-- vim.keymap.set('n', '<C-PageUp>', '<cmd>set foldlevel=999<CR>', { desc = 'Open up all folds', silent = true })
+
 vim.keymap.set('n', 'z`', '<cmd>set foldlevel=0<CR>', { desc = 'Set all folds closed', silent = true })
 vim.keymap.set('n', 'z1', '<cmd>set foldlevel=1<CR>', { desc = 'Set all folds level=1', silent = true })
 vim.keymap.set('n', 'z2', '<cmd>set foldlevel=2<CR>', { desc = 'Set all folds level=2', silent = true })
 vim.keymap.set('n', 'z3', '<cmd>set foldlevel=999<CR>', { desc = 'Set all folds open', silent = true })
+
+function ToggleFoldLevel()
+  local current_foldlevel = vim.opt.foldlevel:get()
+  if current_foldlevel == 0 then
+    vim.opt.foldlevel = 999
+    print("All folds opened")
+  else
+    vim.opt.foldlevel = 0
+    print("All folds closed")
+  end
+end
+
+-- Set a key mapping (e.g., <leader>z)
+vim.keymap.set('n', 'z<leader>', ToggleFoldLevel, { desc = 'Toggle all folds open/closed' })
 
 -- Using Ctrl+/ (similar to many IDEs)
 vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
@@ -152,6 +173,14 @@ vim.keymap.set({ 'n' }, '<leader>td', function()
   end
   vim.wo.spell = not vim.wo.spell
 end, { desc = '[T]oggle [d]iagnostics' })
+
+-- REPL 2025-06-26
+-- Exit terminal insert mode 
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+vim.keymap.set({'n'}, '<Leader>rl', '<Plug>(ReplSendLine)', { silent = true, noremap = true, desc = "REPL Send [l]ine" })
+vim.keymap.set({'x'}, '<Leader>rs', '<Plug>(ReplSendVisual)', { silent = true, noremap = true , desc = "REPL Send [S]elected" })
+vim.keymap.set({'n'}, '<Leader>rc', '<Plug>(ReplSendCell)', { silent = true, noremap = true, desc = "REPL Send [c]ell"  })
+vim.keymap.set({'n'}, '<Leader>rn', '<cmd>Repl<cr>', { silent = true, noremap = true, desc = "REPL [n]ew"  })
 
 -- NOTE: Telescope bindings are in plugins/telescope.lua
 -- NOTE: Snippet/CMP bindings in plugins/blink-cmp.lua
