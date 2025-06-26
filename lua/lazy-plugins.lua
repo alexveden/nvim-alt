@@ -21,8 +21,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup {
   --  Uncomment the following line and add your plugins to `lua/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  { import = 'plugins' },
-  { import = 'autocommands' },
+  spec = {
+    { import = 'plugins' },
+    { import = 'autocommands' },
+  },
   change_detection = {
     -- automatically check for config file changes and reload the ui
     enabled = false,
