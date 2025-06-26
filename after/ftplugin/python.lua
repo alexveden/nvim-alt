@@ -107,45 +107,49 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ja', '<cmd>JupyterAttach<CR>', { de
 vim.api.nvim_buf_set_keymap(0, 'n', '<leader>ji', '<cmd>JupyterInterrupt<CR>', { desc = '[J]upyter [I]nterrupt' , silent = true })
 
 -- REPL capabilities for all selected python code
-vim.api.nvim_buf_set_keymap(0, 'v', '<C-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run to next', silent = true })
-vim.api.nvim_buf_set_keymap(0, 'i', '<S-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
+-- vim.api.nvim_buf_set_keymap(0, 'v', '<C-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run to next', silent = true })
+-- vim.api.nvim_buf_set_keymap(0, 'i', '<S-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
+
 
 if is_jupyter then
-  
+
   -- NOTE: JupyterAttach / JupyterExecute commands see rplugin/python3/jupyter.py
 
   --
   -- Jupyter Text mode
   -- jupyter generic cell object
-  vim.api.nvim_buf_set_keymap(0, 'x', 'aj', ':<c-u>lua JupyterSelectCell(false, true)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'o', 'aj', ':<c-u>lua JupyterSelectCell(false, true)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'x', 'ij', ':<c-u>lua JupyterSelectCell(false, false)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'o', 'ij', ':<c-u>lua JupyterSelectCell(false, false)<cr>', { noremap = true, silent = true })
-
-  -- jupyter code cell object
-  vim.api.nvim_buf_set_keymap(0, 'x', 'aJ', ':<c-u>lua JupyterSelectCell(true, true)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'o', 'aJ', ':<c-u>lua JupyterSelectCell(true, true)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'x', 'iJ', ':<c-u>lua JupyterSelectCell(true, false)<cr>', { noremap = true, silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'o', 'iJ', ':<c-u>lua JupyterSelectCell(true, false)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'x', 'aj', ':<c-u>lua JupyterSelectCell(false, true)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'o', 'aj', ':<c-u>lua JupyterSelectCell(false, true)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'x', 'ij', ':<c-u>lua JupyterSelectCell(false, false)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'o', 'ij', ':<c-u>lua JupyterSelectCell(false, false)<cr>', { noremap = true, silent = true })
+  --
+  -- -- jupyter code cell object
+  -- vim.api.nvim_buf_set_keymap(0, 'x', 'aJ', ':<c-u>lua JupyterSelectCell(true, true)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'o', 'aJ', ':<c-u>lua JupyterSelectCell(true, true)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'x', 'iJ', ':<c-u>lua JupyterSelectCell(true, false)<cr>', { noremap = true, silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'o', 'iJ', ':<c-u>lua JupyterSelectCell(true, false)<cr>', { noremap = true, silent = true })
 
   -- Execute next command
   -- mark j at current cursor position
   -- select inner cell code
   -- send to JupyterExecute
   -- can be jumpable back
-  vim.api.nvim_buf_set_keymap(0, 'n', '<C-CR>', "m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'i', '<C-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'n', '<C-CR>', "m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'i', '<C-CR>', "<esc>m'viJ<c-o>:JupyterExecute<cr>]J", { desc = '[J]upyter run to next', silent = true })
 
   -- Execute in place command comment
   -- mark j at current cursor position
   -- select inner cell code
   -- send to JupyterExecute
   -- jump back to the same position
-  vim.api.nvim_buf_set_keymap(0, 'n', '<S-CR>', "m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
-  vim.api.nvim_buf_set_keymap(0, 'v', '<S-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'n', '<S-CR>', "m'viJ<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
+  -- vim.api.nvim_buf_set_keymap(0, 'v', '<S-CR>', "m'V<c-o>:JupyterExecute<cr>g`'", { desc = '[J]upyter run in-place', silent = true })
 
   vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageUp>', '[j', { desc = '' })
   vim.api.nvim_buf_set_keymap(0, 'n', '<C-PageDown>', ']j', { desc = '' })
+
+  vim.api.nvim_buf_set_keymap(0, 'n', '<S-CR>', '<Plug>(ReplSendCell)', { silent = true, noremap = true })
+  vim.api.nvim_buf_set_keymap(0, 'x', '<S-CR>', '<Plug>(ReplSendVisual)', { silent = true, noremap = true})
 else
   --
   -- Python mode

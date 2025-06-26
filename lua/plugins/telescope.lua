@@ -178,7 +178,7 @@ return {
       vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = '[M]an pages' })
       --vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       -- vim.api.nvim_set_keymap('n', '<leader>fj', [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { noremap = true, silent = true, desc="[J]ump recent"})
-      vim.api.nvim_set_keymap('n', '<Leader><Leader>', [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader><Leader>', [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], { noremap = true, silent = true, desc="Recent files" })
 
       -- Slightly advanced example of overriding default behavior and theme
       -- vim.keymap.set('n', '<C-f>', function()

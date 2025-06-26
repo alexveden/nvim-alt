@@ -30,7 +30,8 @@ return {
         { '<leader>g', name = '󰊢  [G]it' },
         { '<leader>t', name = '  [T]oggle' },
         { '<leader>j', name = '  [J]ust in case' },
-        { '<leader>q', name = '  [Q]uick Fix lis' },
+        { '<leader>q', name = '  [Q]uit Current Window' },
+        { '<leader>r', name = '  [R]EPL Console' },
       }
       --
       --Visual mode
