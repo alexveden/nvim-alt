@@ -178,9 +178,14 @@ end, { desc = '[T]oggle [d]iagnostics' })
 -- Exit terminal insert mode 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 vim.keymap.set({'n'}, '<Leader>rl', '<Plug>(ReplSendLine)', { silent = true, noremap = true, desc = "REPL Send [l]ine" })
-vim.keymap.set({'x'}, '<Leader>rs', '<Plug>(ReplSendVisual)', { silent = true, noremap = true , desc = "REPL Send [S]elected" })
-vim.keymap.set({'n'}, '<Leader>rc', '<Plug>(ReplSendCell)', { silent = true, noremap = true, desc = "REPL Send [c]ell"  })
 vim.keymap.set({'n'}, '<Leader>rn', '<cmd>Repl<cr>', { silent = true, noremap = true, desc = "REPL [n]ew"  })
+vim.keymap.set({'n'}, '<Leader>rr', '<Plug>(ReplSendCell)', { silent = true, noremap = true, desc = "REPL [R]un"  })
+vim.keymap.set({'x'}, '<Leader>rr', '<Plug>(ReplSendVisual)', { silent = true, noremap = true, desc = "REPL [R]un Selected"  })
+vim.keymap.set({'n'}, '<Leader>ra', '<cmd>ReplNewCell<cr>', { silent = true, noremap = true, desc = "REPL [A]ppend Cell"  })
+vim.keymap.set({'n'}, '<Leader>rc', '<cmd>ReplClear<cr>', { silent = true, noremap = true, desc = "REPL [C]lear"  })
+
+  vim.api.nvim_buf_set_keymap(0, 'n', '<S-CR>', '<Plug>(ReplSendCell)', { silent = true, noremap = true })
+  vim.api.nvim_buf_set_keymap(0, 'x', '<S-CR>', '<Plug>(ReplSendVisual)', { silent = true, noremap = true})
 
 -- NOTE: Telescope bindings are in plugins/telescope.lua
 -- NOTE: Snippet/CMP bindings in plugins/blink-cmp.lua
