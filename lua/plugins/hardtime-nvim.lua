@@ -3,13 +3,13 @@ return {
   {
     'm4xshen/hardtime.nvim',
     lazy = true,
-    enabled = true,
+    enabled = false,
     event = 'BufEnter',
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     config = function()
       local opts = {
         max_time = 3000,
-        max_count = 1,
+        max_count = 0,
         disable_mouse = true,
         hint = true,
         notification = true,
