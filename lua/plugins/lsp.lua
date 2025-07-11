@@ -62,8 +62,8 @@ return {
           end
 
           if client.supports_method 'textDocument/signatureHelp' then
-            map('<c-k>', vim.lsp.buf.signature_help, 'Signature [H]elp', { 'i' })
-            map('K', vim.lsp.buf.signature_help, 'Signature [H]elp')
+            map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', { 'i' })
+            map('K', vim.lsp.buf.signature_help, 'Signature Help')
           end
 
           -- Jump to the implementation of the word under your cursor.
@@ -161,9 +161,10 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        --ensure_installed = {'djlsp'}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
       }
+      require('lspconfig').djlsp.setup {}
 
       --
       -- LUA
@@ -241,6 +242,30 @@ return {
             client.offset_encoding = init_result.offsetEncoding
           end
         end,
+      }
+
+      vim.lsp.config['jedi_language_server'] = {
+        cmd = { 'jedi-language-server' },
+        filetypes = { 'python' },
+
+        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', '.git' },
+        capabilities = {
+          textDocument = {
+            completion = {
+              editsNearCursor = true,
+              completionItem = { snippetSupport = false },
+            },
+          },
+        },
+      }
+
+      vim.lsp.config['django-template-lsp'] = {
+        cmd = { 'djlsp' },
+        filetypes = { 'htmldjango' },
+        root_markers = {
+          'requirements.txt',
+          '.git',
+        },
       }
     end,
   },

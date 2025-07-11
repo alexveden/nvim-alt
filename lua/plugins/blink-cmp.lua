@@ -1,5 +1,5 @@
 return {
-  
+
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
   dependencies = { 'rafamadriz/friendly-snippets' },
@@ -26,55 +26,72 @@ return {
     -- C-k: Toggle signature help (if signature.enabled = true)
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
-    keymap = { preset = 'default', ["<CR>"] = {"select_and_accept", "fallback"}, ["<C-k>"] = {"show_documentation"}},
+    keymap = {
+      preset = 'default',
+      ['<CR>'] = { 'select_and_accept', 'fallback' },
+      -- ['<C-k>'] = { 'show_documentation' },
+    },
 
     signature = { enabled = false },
 
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
-      nerd_font_variant = 'mono'
+      nerd_font_variant = 'mono',
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = false } },
+    completion = {
+      documentation = { auto_show = false },
+      accept = {
+        auto_brackets = {
+          enabled = false,
+          -- Synchronously use the kind of the item to determine if brackets should be added
+          kind_resolution = {
+            enabled = false,
+            blocked_filetypes = { 'typescriptreact', 'javascriptreact', 'vue' },
+          },
+          -- Asynchronously use semantic token to determine if brackets should be added
+          semantic_token_resolution = {
+            enabled = false,
+            blocked_filetypes = { 'java' },
+            -- How long to wait for semantic tokens to return before assuming no brackets should be added
+            timeout_ms = 400,
+          },
+        },
+      },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
       per_filetype = {
-        c = { 'lsp', 'buffer' }
+        c = { 'lsp', 'buffer' },
         -- optionally inherit from the `default` sources
         -- lua = { inherit_defaults = true, 'lazydev' }
       },
-      providers = {
-
-      }
+      providers = {},
     },
-    -- snippets = { 
+    -- snippets = {
     --   preset = 'luasnip',
-    --   expand = function(snippet) 
+    --   expand = function(snippet)
     --     if vim.bo.filetype ~= 'c' then
-    --       vim.snippet.expand(snippet) 
-    --     else 
+    --       vim.snippet.expand(snippet)
+    --     else
     --       local lines = { snippet }
     --       vim.api.nvim_put(lines, "c", true, true)
     --     end
-    --     
+    --
     --   end,
     -- },
-
-    
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
     -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
     --
     -- See the fuzzy documentation for more information
-    fuzzy = { implementation = "prefer_rust_with_warning" }
+    fuzzy = { implementation = 'prefer_rust_with_warning' },
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { 'sources.default' },
 }
-
-
