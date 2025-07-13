@@ -41,7 +41,7 @@ return {
           map(']d', vim.diagnostic.goto_next, 'Next [d]iagnostic')
           map('<leader>lD', require('telescope.builtin').diagnostics, '[D]iagnostics')
 
-          if client.supports_method 'textDocument/codeAction' then
+          if client:supports_method 'textDocument/codeAction' then
             map('<leader>la', vim.lsp.buf.code_action, 'code [a]ction', { 'n', 'v' })
           end
 
@@ -52,16 +52,16 @@ return {
           --   end, 'code [f]ormat', { 'n', 'v' })
           -- -- end
 
-          if client.supports_method 'textDocument/references' then
+          if client:supports_method 'textDocument/references' then
             map('gr', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
             map('<leader>lR', require('telescope.builtin').lsp_references, '[G]oto [r]eferences')
           end
 
-          if client.supports_method 'textDocument/rename' then
+          if client:supports_method 'textDocument/rename' then
             map('<leader>lr', vim.lsp.buf.rename, '[R]ename')
           end
 
-          if client.supports_method 'textDocument/signatureHelp' then
+          if client:supports_method 'textDocument/signatureHelp' then
             map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', { 'i' })
             map('K', vim.lsp.buf.signature_help, 'Signature Help')
           end
@@ -164,7 +164,6 @@ return {
         --ensure_installed = {'djlsp'}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
       }
-      require('lspconfig').djlsp.setup {}
 
       --
       -- LUA
@@ -257,11 +256,22 @@ return {
             },
           },
         },
+      on_attach = function(client, bufnr)
+        -- Enable diagnostics
+        vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                -- Enable diagnostics
+                virtual_text = true,  -- or your preferred diagnostic config
+                signs = true,
+                update_in_insert = false,
+            }
+        )
+    end
       }
 
-      vim.lsp.config['django-template-lsp'] = {
-        cmd = { 'djlsp' },
-        filetypes = { 'htmldjango' },
+      vim.lsp.config['jinja_lsp'] = {
+        cmd = { 'jinja-lsp' },
+        filetypes = { 'jinja' },
         root_markers = {
           'requirements.txt',
           '.git',
