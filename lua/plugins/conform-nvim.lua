@@ -22,7 +22,7 @@ return {
       lua = { 'stylua' },
       python = { 'isort', 'black' },
       javascript = { 'prettier', stop_after_first = true },
-      htmldjango = {"djlint"},
+      html = {"djlint"},
     },
     -- Set default options
     default_format_opts = {
