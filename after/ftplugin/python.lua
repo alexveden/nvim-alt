@@ -11,7 +11,7 @@ vim.cmd 'runtime! ftplugin/common_code.lua'
 local is_jupyter = false
 local all_lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
 for _, line in ipairs(all_lines) do
-  if line:match '^# %%%%' then
+  if line:match '^%s*# %%%%' then
     is_jupyter = true
     break
   end
