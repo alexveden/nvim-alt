@@ -214,7 +214,7 @@ return {
       -- C
       --
       vim.lsp.config['clangd'] = {
-        cmd = { 'clangd' },
+        cmd = { 'clangd', "--header-insertion=never" },
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
         root_markers = {
           '.clangd',
