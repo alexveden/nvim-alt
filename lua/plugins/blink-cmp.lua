@@ -51,6 +51,7 @@ return {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
       per_filetype = {
         c = { 'lsp', 'buffer' },
+        markdown = {}, -- disabled for all
         -- optionally inherit from the `default` sources
         -- lua = { inherit_defaults = true, 'lazydev' }
       },
